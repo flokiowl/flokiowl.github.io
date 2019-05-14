@@ -1,10 +1,210 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 	<meta charset="UTF-8">
-	<title>Hello</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Andrew Golub - Front-End Developer </title>
+	<link rel="icon" type="image/png" href="favicon.png">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<h1>Hello</h1>
+	<header class="header">
+		<nav class="main-navigation">
+			<div class="main-navigation__top">
+				<a href="#"><img class="header__logo" src="img/logo-black.svg" alt="Логотип"></a>
+				<button class="main-navigation__button"><span class="main-navigation__button--burger"></span></button>
+			</div>
+			<ul class="main-navigation__list">
+				<li class="main-navigation__item">
+					<a href="#about-me" class="main-navigation__link">
+						<span class="main-navigation__link--hidden">Обо мне</span>
+						<span class="main-navigation__link--visible">Обо мне</span>
+					</a>
+				</li>
+				<li class="main-navigation__item">
+					<a href="#portfolio" class="main-navigation__link">
+						<span class="main-navigation__link--hidden">Портфолио</span>
+						<span class="main-navigation__link--visible">Портфолио</span>
+					</a>
+				</li>
+				<li class="main-navigation__item">
+					<a href="#contacts" class="main-navigation__link">
+						<span class="main-navigation__link--hidden">Контакты</span>
+						<span class="main-navigation__link--visible">Контакты</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+		<h2 class="header__title">Андрей Голуб</h2>
+		<p class="header__text">Фронтенд разработчик из Украины</p>
+	</header>
+	<main>
+		<section class="about-me" id="about-me">
+			<h2 class="about-me__title">Немного о себе</h2>
+			<div class="about-me__wrapper">
+				<div>
+					<img class="about-me__photo" src="img/about-me-menu2.jpg" alt="">
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non adipisci magni, dignissimos perferendis numquam veniam blanditiis doloremque atque tenetur, at. Praesentium similique exercitationem, nemo sit nihil atque, quisquam odit fugit?</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non adipisci magni, dignissimos perferendis numquam veniam blanditiis doloremque atque tenetur, at. Praesentium similique exercitationem, nemo sit nihil atque, quisquam odit fugit?</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non adipisci magni, dignissimos perferendis numquam veniam blanditiis doloremque atque tenetur, at. Praesentium similique exercitationem, nemo sit nihil atque, quisquam odit fugit?</p>
+				</div>
+				<img class="about-me__photo" src="img/about-me-menu2.jpg" alt="">
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non adipisci magni, dignissimos perferendis numquam veniam blanditiis doloremque atque tenetur, at. Praesentium similique exercitationem, nemo sit nihil atque, quisquam odit fugit?</p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non adipisci magni, dignissimos perferendis numquam veniam blanditiis doloremque atque tenetur, at. Praesentium similique exercitationem, nemo sit nihil atque, quisquam odit fugit?</p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Non adipisci magni, dignissimos perferendis numquam veniam blanditiis doloremque atque tenetur, at. Praesentium similique exercitationem, nemo sit nihil atque, quisquam odit fugit?</p>
+				<h3>Ключевые навыки и технологии</h3>
+				<div class="about-me__skill">
+					<img src="img/html5.svg" alt="HTML5 Logo">
+					<p class="about-me__skill-description">HTML - язык гипертекстовой разметки. Уверенно себя чувствую.</p>
+				</div>
+				<div class="about-me__skill">
+					<img src="img/css3.svg" alt="CSS3 Logo">
+					<p class="about-me__skill-description">CSS (Каскадные таблицы стилей). Уверенно себя чувствую.</p>
+				</div>
+				<div class="about-me__skill">
+					<img src="img/js.svg" alt="JavaScript Logo">
+					<p class="about-me__skill-description">Язык разметки HTML. Уверенно себя чувствую.</p>
+				</div>
+				<div class="about-me__skill">
+					<img src="img/bem.svg" alt="BEM Logo">
+					<p class="about-me__skill-description">Язык разметки HTML. Уверенно себя чувствую.</p>
+				</div>
+				<div class="about-me__skill">
+					<img src="img/gulp-1.svg" alt="Gulp Logo">
+					<p class="about-me__skill-description">Язык разметки HTML. Уверенно себя чувствую.</p>
+				</div>
+				<div class="about-me__skill">
+					<img src="img/sass.svg" alt="Sass Logo">
+					<p class="about-me__skill-description">Язык разметки HTML. Уверенно себя чувствую.</p>
+				</div>
+				
+			</div>
+		</section>
+		<section class="portfolio" id="portfolio">
+			<h2 class="portfolio__title">Портфолио</h2>
+			<ul class="portfolio__list">
+				<li class="portfolio__item">
+					<img src="img/ce.jpg" alt="" class="img-responsive">
+					<div class="portfolio__project">
+						<p>Проект разработан: HTML Academy</p>	
+						<a class="portfolio__codeview btn">Посмотреть код</a>
+						<a class="portfolio__pageview btn" href="src/index.html">Открыть страницу</a>
+					</div>
+				</li>
+				<li class="portfolio__item">
+					<img src="img/ce.jpg" alt="" class="img-responsive">
+					<div class="portfolio__project">
+						<p>Проект разработан: HTML Academy</p>
+						<a class="portfolio__codeview btn">Посмотреть код</a>
+						<a class="portfolio__pageview btn">Открыть страницу</a>
+					</div>
+				</li>
+				<li class="portfolio__item">
+					<img src="img/ce.jpg" alt="" class="img-responsive">
+					<div class="portfolio__project">
+						<p>Проект разработан: HTML Academy</p>
+						<a class="portfolio__codeview btn">Посмотреть код</a>
+						<a class="portfolio__pageview btn">Открыть страницу</a>
+					</div>
+				</li>
+				<li class="portfolio__item">
+					<img src="img/ce.jpg" alt="" class="img-responsive">
+					<div class="portfolio__project">
+						<p>Проект разработан: HTML Academy</p>
+						<a class="portfolio__codeview btn">Посмотреть код</a>
+						<a class="portfolio__pageview btn">Открыть страницу</a>
+					</div>
+				</li>
+			</ul>
+		</section>
+		<footer class="footer" id="contacts">
+			<div class="footer__intro">
+				<h2 class="footer__title">Контакты</h2>
+				<p class="footer__text">&#8212; Если Вы хотите задать вопрос,<br> сообщить об ошибках или просто<br> поздороваться, можете воспользоваться<br> одним из представленных способов:</p>
+			</div>
+			<div class="footer__wrapper">
+				<h3 class="footer__email">Email</h4>
+				<a class="footer__link" href="emailto:andrewgolub25@gmail.com">
+					<i class="footer__icon far fa-envelope"></i>
+					<span>andrewgolub25@gmail.com</span>
+				</a>
+				<h3 class="footer__phone">Телефон</h3>
+				<a class="footer__link" href="tel:+380676654620">
+					<i class="footer__icon fas fa-phone"></i>
+					<span>+380676654620</span>
+				</a>
+			</div>
+			<ul class="footer__social">
+				<li class="footer__item">
+					<a href="https://www.facebook.com/flokiowl" aria-label="facebook">
+						<i class="footer__icon fab fa-facebook-f"></i>
+					</a>
+				</li>
+				<li>
+					<a href="https://www.instagram.com/flokiowl/" aria-label="instagram">
+						<i class="footer__icon fab fa-instagram"></i>
+					</a>
+				</li>
+				<li>
+					<a href="https://twitter.com/TB5oQSGsWtxYwbv" aria-label="twitter">
+						<i class="footer__icon fab fa-twitter"></i>
+					</a>
+				</li>
+				<li>
+					<a href="https://github.com/flokiowl" aria-label="github">
+						<i class="footer__icon fab fa-github"></i>
+					</a>
+				</li>
+				<li>
+					<a href="https://t.me/flokiowl" aria-label="telegram">
+						<i class="footer__icon fab fa-telegram-plane"></i>
+					</a>
+				</li>
+			</ul>
+			
+		</footer>
+	</main>
+
+
+
+
+
+
+
+	<!-- <ul>
+		<li>
+			<a href="#">
+				<span>About me</span>
+				<span>About me</span>
+			</a>
+		</li>
+		<li>
+			<a href="#">
+				<span>Portfolio</span>
+				<span>Portfolio</span>
+			</a>
+		</li>
+		<li>
+			<a href="#">
+				<span>Contacts</span>
+				<span>Contacts</span>
+			</a>
+		</li>
+	</ul> -->
+	
+
+	<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <script>
+  	$('.main-navigation__button').on('click',function(evt){
+  		evt.preventDefault();
+		$('.main-navigation').toggleClass('main-navigation--open');
+		$('.main-navigation__button--burger').toggleClass('open');
+  	})
+  </script>
 </body>
 </html>
