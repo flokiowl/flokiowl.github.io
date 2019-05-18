@@ -1,0 +1,64 @@
+//contacts
+
+.contacts {
+	padding-bottom:20px;
+}
+
+.contacts__label {
+	padding-bottom:25px;
+	position: relative;
+}
+
+.contacts__icon {
+	position:absolute;
+}
+.contacts__icon--email {
+	width:17px;
+	height:13px;
+	top:9px;
+	right:15px;
+}
+.contacts__icon--phone {
+	width:20px;
+	height:20px;
+	top:7px;
+	right:8px;
+}
+
+.input-text:focus + .contacts__icon {
+	fill:#68b738;
+}
+
+.form.submitted .input-text:invalid + .contacts__icon {
+	fill:#ff8282;
+}
+
+@media (min-width:768px) {
+	.contacts__icon--email {
+		width:19px;
+		height:15px;
+		top:17px;
+		right:17px;
+	}
+	.contacts__icon--phone {
+		width:22px;
+		height:22px;
+		top:14px;
+		right:11px;
+	}
+}
+
+@media (min-width:1300px) {
+	.contacts__wrapper {
+		display:flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		flex-shrink:0;
+	}
+	.contacts__label{
+		width:45%;
+		flex-shrink: 0;
+		flex-grow: 0;
+	}
+}

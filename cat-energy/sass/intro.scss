@@ -1,0 +1,139 @@
+.intro {
+	background:url("../img/index-background-mobile.png") no-repeat center top,
+	 url("../img/bg-green.jpg") repeat-x;
+
+	display:flex;
+	flex-direction:column;
+	padding:0 20px;
+}
+
+.intro__title {
+	color:#fff;
+	font-size:36px;
+	font-weight: 400;
+	line-height: 36px;
+	text-align:center;
+	vertical-align: center;
+
+	margin: 0;
+	padding: 0;
+	padding-top:30px;
+	padding-bottom:15px;
+}
+
+.intro__slogan {
+	color:#fff;
+	font-size:14px;
+	line-height: 14px;
+	text-transform: uppercase;
+	text-align: center;
+
+	margin-bottom:25px;
+}
+
+.intro__feed-image {
+	text-align: center;
+}
+
+.button {
+	width:100%;
+	min-height:40px;
+
+	color:#fff;
+	font-family: inherit;
+	font-size:14px;
+	line-height: 39px;
+	font-weight:400;
+	text-transform: uppercase;
+	text-align: center;
+
+	display:block;
+
+	background-color: #68b738;
+	border:none;
+	&:hover {
+		background-color: #5eaa2f;
+	}
+	&:active {
+		color:#8fc46e;
+	}
+}
+
+
+@media (min-width:768px) {
+	.intro {
+		display:flex;
+		flex-direction:column;
+		background-image:none;
+		color:#000;
+	}
+	.intro__title {
+		color:#000;
+		text-align: left;
+		font-size: 60px;
+		line-height: 60px;
+
+		margin-left: 80px;
+		margin-bottom: 10px;
+
+		order:1;
+	}
+	.intro__slogan {
+		color:#000;
+		text-align: left;
+		font-size:20px;
+		line-height: 21px;
+
+		margin-left: 80px;
+		margin-bottom: 50px;
+
+		order:2;
+	}
+
+	.intro__feed-image {
+		display:block;
+		width:709px;
+		height:609px;
+
+		margin-top: -85px;
+
+		order:4;
+	}
+	.intro__program-btn {
+		order:3;
+		width:250px;
+		min-height:50px;
+		font-size: 20px;
+		line-height: 50px;
+
+		margin-left: 80px;
+
+		z-index:1;
+		&:hover {
+			background-color: #5eaa2f;
+		}
+		&:active {
+			color:#8fc46e;
+		}
+	}
+}
+
+@media (min-width:1300px) {
+	.intro__title {
+		margin-top:85px;
+	}
+	.intro__feed-image {
+		display:block;
+		width:552px;
+		height:499px;
+
+		margin-top: 0;
+
+		position: absolute;
+		top:140px;
+		right:355px;
+	}
+	.intro__program-btn {
+		margin-bottom:300px;
+	}
+}

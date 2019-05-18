@@ -1,0 +1,11 @@
+//general-info
+
+.general-info__label {
+	padding-bottom:40px;
+}
+
+@media (min-width:1300px) {
+	.general-info {
+		width:45%;
+	}
+}

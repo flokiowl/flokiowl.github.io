@@ -1,0 +1,147 @@
+.example {
+	padding: 0 20px;
+}
+.example__title {
+	font-size:36px;
+	line-height: 60px;
+	font-weight:400;
+
+	margin: 0;
+	margin-top:-20px;
+	margin-bottom:30px;
+}
+
+.example__text {
+	font-size:14px;
+	line-height: 18px;
+	font-family: Arial, sans-serif;
+	color:#444444;
+
+	margin: 0;
+}
+
+.example__table {
+	display:flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.example__table-item {
+	display:flex;
+	flex-direction: column;
+	align-items:center;
+}
+
+.example__table-text {
+	display: block;
+	min-width:120px;
+	min-height:55px;
+	border: 1.5px solid #cdcdcd;
+	border-radius:4px;
+
+	font-size:24px;
+
+	text-align: center;
+	text-transform: uppercase;
+	line-height: 40px;
+}
+
+.example__table-mark {
+	display:block;
+	max-width:90px;
+	background-color: #fff;
+	text-align:center;
+	
+	padding: 0 15px;
+	margin-top:-40px;
+	
+	font-family: Arial, sans-serif;
+	font-size:12px;
+	line-height: 12px;
+	color:#444444;
+}
+
+.example__food-costs {
+	font-size:14px;
+	line-height: 20px;
+	text-align:center;
+	text-transform: uppercase;
+
+	margin-bottom:30px;
+}
+
+@media (min-width:768px) {
+	.example__title {
+		font-size: 60px;
+		line-height: 60px;
+
+		margin-bottom: 60px;
+	}
+	.example__text {
+		font-size: 16px;
+		line-height: 24px;
+
+		margin-bottom: 50px;
+	}
+	.example__wrapper {
+		display:flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
+	.example__table {
+		justify-content: flex-start;
+
+		margin-bottom: 70px;
+	}
+	.example__table-item {
+		margin-right: 40px;
+	}
+	.example__table-text {
+		min-width:172px;
+		min-height: 70px;
+
+		font-size: 30px;
+		line-height: 60px;
+	}
+	.example__table-mark {
+		max-width:150px;
+		font-size: 14px;
+		line-height: 14px;
+		padding: 2px 10px;
+	}
+	.example__food-costs {
+		width:180px;
+		font-size: 20px;
+		line-height: 33px;
+		margin: 24px auto;
+		margin-bottom: 60px;
+
+		padding-top:15px;
+	}
+}
+
+@media (min-width: 1300px) {
+	.example {
+		display:flex;
+		flex-direction:row;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+	.example__wrapper {
+		flex-direction: column;
+	}
+	.example__table {
+		margin-bottom: 25px;
+	}
+	.example__title {
+		margin-bottom: 150px;
+	}
+	.example__text {
+		width:440px;
+		margin-bottom: 50px;
+	}
+	.example__food-costs {
+		width:auto;
+		text-align: left;
+	}
+}

@@ -1,0 +1,43 @@
+//program-selection
+
+.program-selection {
+	font-family: inherit;
+	padding:0 20px;
+}
+
+.program-selection__title {
+	font-weight: 400;
+	font-size: 36px;
+	line-height: 60px;
+
+	padding: 0;
+	margin: 0;
+	margin-bottom:30px;
+}
+
+.program-selection__text {
+	text-transform: uppercase;
+	margin-bottom:40px;
+}
+
+@media (min-width:768px) {
+	.program-selection__title {
+		font-size: 60px;
+		margin-bottom: 60px;
+	}
+	.program-selection__text {
+		font-size: 20px;
+		line-height: 23px;
+		margin-left: 40px;
+		margin-bottom: 90px;
+	}
+}
+
+@media (min-width:1300px) {
+	.program-selection__title {
+		margin-top: 70px;
+	}
+	.program-selection__text {
+		margin-left: 0;
+	}
+}

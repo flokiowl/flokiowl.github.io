@@ -1,0 +1,242 @@
+@media (max-width:767px) {
+
+	.main-navigation {
+		display:flex;
+		flex-direction:column;
+
+		width:100%;
+		min-height:60px;
+
+		position: fixed;
+		top:0;
+		left:0;
+		background-color:$dark;
+		z-index: 17;
+	}
+
+	.main-navigation__list {
+		list-style:none;
+		width:100%;
+		margin: 0;
+		padding: 0;
+
+		background-color:#151515;
+		position:absolute;
+		top:-131px;
+		left:0;
+
+		display:flex;
+		flex-direction: column;
+		justify-content: center;
+
+		transition:all .3s linear;
+	}
+	.main-navigation__item {
+		width:200px;
+		min-height:20px;
+		margin: 0 auto;
+		padding: 0;
+
+		text-align: center;
+		justify-content: center;
+	}
+	.main-navigation__link {
+		font-family: 'Montserrat', sans-serif;
+		font-weight: 700;
+		font-size:20px;
+		line-height: 40px;
+		text-transform: uppercase;
+		text-decoration: none;
+		color:#fff;
+	}
+	.main-navigation__link--visible {
+		display:block;
+		width:100%;
+		min-height:60px;
+	}
+	.main-navigation__link--hidden {
+		display:none;
+	}
+
+
+	.main-navigation__top {
+		position: relative;
+		width:100%;
+		background-color:$dark;
+		z-index: 15;
+		min-height: 60px;
+
+		border-bottom: 1px solid $red;
+	}
+	.main-navigation__button {
+		width:40px;
+		height:40px;
+		border:none;
+		position: absolute;
+		top: 10px;
+		right:15px;
+		background-color:transparent;	
+	}
+	.main-navigation__button--burger {
+		height: 3.5px;
+		width:30px;
+		position: absolute;
+		top: 20px;
+		right:-10px;
+		border:none;
+		border-radius: 50px;
+	 	background-color: #fff;
+		transform: translate(-50%,-50%) rotate(0deg);
+		transition: transform ease .5s;
+		z-index:15;
+		&:focus {
+			outline:none;
+		}
+	 	&::before,&::after{
+		    content:"";
+		    position: absolute;
+		    height: inherit;
+		    border-radius: inherit;
+		    background-color: inherit;
+		    margin: auto;
+		    width: 50%;
+		    transition: all ease 0.5s, background-color 0s ease;
+	  }
+	 	&::before{
+		    top: -8px;
+		    left: 0;
+		    transform-origin: left;
+	  }
+	 	&::after{
+		    bottom:-8px;
+		    right: 0;
+		    transform-origin: right;
+	  }
+	}
+
+	.open {
+	  transform:translate(-50%,-50%) rotate(135deg);
+	  background-color:$red;
+	  	&::before{
+		    top:0;
+		    transform: translateX(100%) rotate(-90deg);
+	  	}
+	  	&::after{
+		    bottom:0;
+		    transform: translateX(-100%) rotate(-90deg);
+	  	}
+	}
+	.main-navigation--open .main-navigation__list {
+		width:100%;
+		margin: 0 auto;
+		background-color:#202020;
+		z-index: 14;
+		top:49px;
+		transition:all .3s linear;
+	} 
+	.main-navigation--open .main-navigation__link {
+		color:#fff;
+		line-height: 60px;
+		&:hover {
+			color:#e25b5f;
+			transition:color .2s ease;
+		}
+		&:active {
+			color:#904a44;
+		}	
+	}
+}
+
+@media (min-width:768px) {
+	.main-navigation {
+		width:100%;
+		position: fixed;
+		top:40px;
+		display:flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		z-index: -1;
+	}
+	.main-navigation__top {
+		margin-bottom: 50px;
+	}
+	.main-navigation__list {
+		margin: 0;
+		padding: 10px;
+		display:flex;
+		border-bottom:1px solid $red;
+	}
+	.main-navigation__item {
+		position: relative;
+		list-style: none;
+		margin: 0 10px;
+		&::before {
+			content:'';
+			position:absolute;
+			top:-50px;
+			left:-65px;
+			width:200px;
+			height:230px;
+			background:#00f;
+			z-index:-1;
+			opacity:0;
+			transition:0.5s;
+			transform:translateY(100px);
+			pointer-events:none;
+		}
+		&:hover::before {
+			opacity: .5;
+			transition-delay:0.3s;
+			transform:translateY(0);
+		}
+		&:nth-child(1)::before {
+			background:url("../img/about-me-menu.jpg");
+			background-size:cover;
+		}
+		&:nth-child(2)::before {
+			background:url("../img/about-me-menu2.jpg");
+			background-size:cover;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+		&:nth-child(3)::before {
+			background:url("../img/contacts-menu.jpg");
+			background-size:cover;
+			background-repeat: no-repeat;
+			background-position: center;
+		}
+	}
+	.main-navigation__link {
+		position: relative;
+		height:22px;
+		display:block;
+		text-decoration: none;
+		overflow: hidden;
+		text-transform: uppercase;
+		font-weight: 600;
+		font-size: 20px;
+		span {
+			width:100%;
+			height:100%;
+			display:block;
+			transition:0.5s;
+		}
+	}
+	.main-navigation__link--visible {
+		color:$red;
+	}
+	.main-navigation__link--hidden {
+		color:#fff;
+	}
+	.main-navigation__item:hover .main-navigation__link--hidden {
+		transform: translateY(-100%);
+	}
+	.main-navigation__item:hover .main-navigation__link--visible {
+		transform: translateY(-100%);
+	}
+	.main-navigation__button {
+		display:none;
+	}
+
+}

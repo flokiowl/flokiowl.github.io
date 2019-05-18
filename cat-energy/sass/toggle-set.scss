@@ -1,0 +1,83 @@
+//toggle-set
+
+.toggle-set {
+	padding-bottom:50px;
+}
+
+.toggle-set__item {
+	position: relative;
+	
+	line-height: 30px;
+	padding-left: 40px;
+
+	cursor: pointer;
+	&:not(:last-child) {
+		margin-bottom:15px;
+	}
+}
+
+.toggle-set__item:focus {
+	color:#663d15;
+}
+
+.toggle-set__item input[type="radio"] + .toggle-set__radio {
+	position: absolute;
+	top:0;
+	left:0;
+
+	width: 30px;
+	height: 30px;
+
+	border:1px solid #cdcdcd;
+	border-radius: 50%;
+}
+
+.toggle-set__item input[type="radio"]:checked + .toggle-set__radio {
+	&::before,
+	&::after {
+		content:"";
+		position: absolute;
+		top:8px;
+		left: 8px;
+
+		width:12px;
+		height: 12px;
+		border-radius:50%;
+
+		background-color: #68b738;
+	}
+}
+
+@media (min-width:768px) {
+	.toggle-set {
+		border:1px solid rgba(80,80,80,.2);
+		padding:30px;
+		margin-bottom: 80px;
+	}
+	.toggle-set__text {
+		margin-left:15px;
+		margin-top: 5px;
+	}
+	.toggle-set__item input[type="radio"] + .toggle-set__radio {
+		width:40px;
+		height:40px;
+	}
+	.toggle-set__item input[type="radio"]:checked + .toggle-set__radio {
+		&::before,
+		&::after {
+			width:19px;
+			height:19px;
+			top:10px;
+			left:10px;
+		}
+	}
+}
+
+@media (min-width:1300px) {
+	.toggle-set {
+		width:45%;
+	}
+	.toggle-set__item:not(:last-child) {
+		margin-bottom: 30px;
+	}
+}

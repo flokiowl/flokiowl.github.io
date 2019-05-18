@@ -1,0 +1,61 @@
+iframe {
+	width:100%;
+	height:370px;
+}
+.cooperation__wrapper {
+	display:flex;
+	justify-content: space-between;
+	padding: 0 20px;
+}
+
+.cooperation__invite {
+	font-size: 16px;
+	line-height: 20px;
+	font-weight: 400;
+}
+
+.cooperation__address {
+	margin: 0;
+	margin-bottom: 25px;
+	
+	font-size:14px;
+	line-height: 20px;
+	font-family:Arial,sans-serif;
+	font-weight: 400;
+	color: #444444;
+}
+
+@media (min-width: 768px) {
+	.cooperation__invite {
+		font-size: 20px;
+		line-height: 25px;
+	}
+	.cooperation__address {
+		font-size: 16px;
+		margin-bottom: 50px;
+	}
+}
+
+@media (min-width: 1300px) {
+	.cooperation {
+		position: relative;
+	}
+	.cooperation__wrapper {
+		width:570px;
+		min-height:201px;
+
+		background-color: #fff;
+
+		padding:60px 60px;
+
+		position: absolute;
+		top:111px;
+		left:110px;
+		z-index: 1000;
+
+		box-shadow: 0 0 10px .5px #7c7c7c;
+	}
+	.cooperation__address {
+		margin-bottom: 0;
+	}
+}

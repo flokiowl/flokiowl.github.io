@@ -1,0 +1,84 @@
+$red: #e25b5f;
+$dark: #252525;
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}  
+html {
+	box-sizing: border-box;
+	scroll-behavior: smooth;
+}
+body {
+	margin: 0;
+	margin-top: 60px;
+	padding: 0;
+
+	font-family: 'Montserrat', "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size: 16px;
+	line-height: 18px;
+	font-weight: 400;
+	color:#151515;
+
+	background-color: #fff;
+}
+img {
+	max-width:100%;
+	height:auto;	
+}
+.visually-hidden:not(:focus):not(:active),
+input[type="checkbox"].visually-hidden,
+input[type="radio"].visually-hidden {
+	position:absolute;
+
+	width:1px;
+	height: 1px;
+	margin: -1px;
+	border:0;
+	padding: 0;
+
+	white-space:nowrap;
+
+	clip-path: inset(100%);
+	clip:rect(0 0 0 0);
+	overflow:hidden;
+}
+
+@mixin title {
+	width:auto;
+	margin: 0;
+	margin-left: 10px;
+	margin-bottom: 80px;
+	padding: 0;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 400;
+	font-size: 36px;
+	line-height: 36px;
+	text-transform: uppercase;
+	position:relative;
+	&::after {
+		content:'';
+		width:100px;
+		height:2px;
+		position:absolute;
+		bottom:-40px;
+		left:-40px;
+		background-color:$red;
+	}
+}
+@mixin base-font {
+	font-size: 14px;
+	margin: 0;
+	padding: 0;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 400;
+	line-height: 16px;
+}
+
+@import './header.scss';
+@import './main-navigation.scss';
+@import './about-me.scss';
+@import './portfolio.scss';
+@import './footer.scss';
+

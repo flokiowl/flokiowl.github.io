@@ -1,0 +1,103 @@
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}   
+
+html {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+
+	min-width:320px;
+
+	font-family:'Oswald', Arial, sans-serif;
+	font-size: 14px;
+	line-height: 18px;
+	font-weight: 400;
+	color:#000;
+	
+	background-color: #fff;
+}
+
+a {
+	text-decoration:none;
+	color:inherit;
+}
+
+.container {
+	display:block;
+	width:100%;
+	margin:0 auto;
+}
+
+.visually-hidden:not(:focus):not(:active),
+input[type="checkbox"].visually-hidden,
+input[type="radio"].visually-hidden {
+	position:absolute;
+
+	width:1px;
+	height: 1px;
+	margin: -1px;
+	border:0;
+	padding: 0;
+
+	white-space:nowrap;
+
+	clip-path: inset(100%);
+	clip:rect(0 0 0 0);
+	overflow:hidden;
+}
+
+@media (min-width:768px) {
+	.container {
+		max-width:708px;
+	}
+}
+
+@media (min-width:1300px) {
+	body {
+		background-image: url("../img/index-background-desktop.jpg");
+		background-repeat:no-repeat;
+		background-size: 720px 696px;
+		background-position: top right;
+	}
+	body.inner-page {
+		background-image:none; 
+	}
+	.container {
+		max-width:1220px;
+	}
+}
+
+
+//index-mobile
+@import './page-header.scss';
+@import './intro.scss';
+@import './feed-program.scss';
+@import './how-it-works.scss';
+@import './example.scss';
+@import './slider.scss';
+@import './footer-cooperation.scss';
+@import './footer-bottom.scss';
+
+//catalog-mobile
+@import './catalog.scss';
+@import './more-product.scss';
+@import './additional.scss';
+@import './gift.scss';
+
+//form-mobile
+@import './form.scss';
+@import './program-selection.scss';
+@import './general-info.scss';
+@import './toggle-set.scss';
+@import './contacts.scss';
+@import './comment.scss';
+@import './form-additional.scss';
+
+
+

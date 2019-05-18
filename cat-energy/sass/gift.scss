@@ -1,0 +1,59 @@
+//gift.scss 
+
+
+.gift {
+	width:100%;
+	min-height:288px;
+	margin-top: 40px;
+	margin-bottom:60px;
+
+	background: url('../img/gift-photo-mobile.jpg') center no-repeat;
+	background-size:cover;
+
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.gift__icon {
+	fill:#fff;
+	width:55px;
+	height:60px;
+}
+
+.gift__text {
+	color: #fff;
+	font-family: Arial, sans-serif;
+	font-size: 16px;
+
+	text-align: center;
+	margin-top: 60px;
+}
+
+@media (min-width:768px) {
+	.gift {
+		min-height:200px;
+		margin-top: 60px;
+		margin-bottom: 140px;
+
+		flex-direction: row;
+		justify-content: space-around;
+
+		background-position: center top 70%;
+	}
+
+	.gift__text {
+		text-align: left;
+		margin-top: 15px;
+	}
+}
+
+@media (min-width:1300px) {
+	.gift {
+		width:245px;
+		height:288px;
+		margin-top: 0;
+		flex-direction: column;
+		justify-content: center;
+	}
+}

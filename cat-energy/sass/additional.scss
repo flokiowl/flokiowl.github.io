@@ -1,0 +1,138 @@
+//additional.scss 
+.additional {
+	padding:0 20px;
+}
+.additional__title {
+	font-size: 24px;
+	font-weight:400;
+
+	padding-bottom:40px;
+	border-bottom:1px solid #cdcdcd;
+
+	position: relative;
+	&::after {
+		content: "";
+
+		width:53px;
+		height:3px;
+
+		position: absolute;
+		top:10px;
+		right:-20px;
+
+		background-color: #68b738;
+	}
+}
+
+.additional__list {
+	padding: 0;
+	margin: 0;
+	list-style:none;
+}
+
+.additional__item {
+	padding-bottom:15px;
+	border-bottom: 1px solid #cdcdcd;
+}
+
+.additional__item-title {
+	font-size: 16px;
+	line-height: 16px;
+	font-weight: 400;
+	text-transform: uppercase;
+}
+
+.additional__table {
+	width:100%;
+	
+	font-family: Arial, sans-serif;
+	color:#444444;
+
+	margin-bottom:15px;
+}
+
+.additional__table-item {
+	text-align: right;
+}
+
+.additional__btn {
+	font-family: inherit;
+	font-size: 16px;
+}
+
+@media (min-width:768px) {
+	.additional__title {
+		font-size: 36px;
+		line-height: 1;
+		max-width:450px;
+		
+		padding-left: 35px;
+		padding-bottom:0;
+		margin-bottom: 80px;
+		border-bottom:none;
+
+		position: relative;
+		background-color:#fff;
+		&::after, &::before {
+			content: "";
+		    position: absolute;
+		    top: 50%;
+		    width: 100vw;
+		    height: 3px;
+		    margin-top: 2px;
+		    background: #68b738;
+		    z-index: -1;
+		}
+	}
+	.additional__item {
+		padding-bottom:15px;
+		border: 1px solid rgba(80,80,80,.2);
+		padding: 27px 30px;
+		border-collapse: collapse;
+
+		display:flex;
+		flex-wrap: wrap;
+	}
+	.additional__item-title {
+		font-size: 20px;
+		line-height: 20px;
+		width:60%;
+		margin: 0;
+	}	
+	.additional__table {
+		width:40%;
+		margin-bottom: 30px;
+		font-size: 16px;
+		line-height: 20px;
+	}
+}
+
+@media (min-width:1300px) {
+	.additional__wrapper {
+		display:flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+	.additional__list {
+		width:900px;
+	}
+	.additional__item {
+		max-height:73px;
+		padding: 15px 30px;
+		align-items: center;
+		justify-content: space-between;
+		border:1px solid rgba(80,80,80,.17);
+	}
+	.additional__item-title {
+		width:25%;
+	}	
+	.additional__table {
+		width:35%;
+		margin-bottom: 0;
+	}
+	.additional__btn {
+		width:25%;
+		max-height:40px;
+	}
+}
