@@ -1,0 +1,51 @@
+.articles {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding-top:250px;
+
+	background-image:url('../img/healing.png'), url('../img/5ways.png');
+	background-position: top 180px right 0, bottom 250px left 0;
+	background-size: 641px 620px, 609px 715px;
+	background-repeat: no-repeat;
+}
+.articles__first {
+	margin-left: 150px;
+	margin-bottom: 250px;
+	width:500px;
+	cite {
+		opacity:0.51;
+	}
+}
+.articles__second {
+	width:500px;
+	margin-right: 150px;
+	margin-bottom: 250px;
+	align-self: flex-end;
+}
+.articles__title {
+	margin: 0;
+	margin-top: 10px;
+	font-size: 45px;
+	line-height: 55px;
+}
+.articles__text {
+	width:400px;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	margin-left: 40px;
+	font-weight: 300;
+	line-height: 35px;
+	text-indent: 30px;
+}
+.articles__second .articles__text {
+	width:500px;
+}
+.articles__link {
+	margin-left: 40px;
+	text-decoration: none;
+	color:#6ccef4;
+	&:hover {
+		text-decoration: underline;
+	}
+}

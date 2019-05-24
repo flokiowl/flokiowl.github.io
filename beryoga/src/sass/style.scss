@@ -1,0 +1,97 @@
+@font-face {
+	font-family: 'FivoSans';
+	src: url('../fonts/FivoSans-Light.woff') format('woff');
+	font-weight: 300;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'FivoSans';
+	src: url('../fonts/FivoSans-Regular.woff') format('woff');
+	font-weight: 400;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'FivoSans';
+	src: url('../fonts/FivoSans-Bold.woff') format('woff');
+	font-weight: 700;
+	font-style: normal;
+}
+
+$light-red: #ff6a6d;
+$blue-gradient: linear-gradient(90deg, #5fcef5 25%,#83e3fb);
+
+
+*,
+*::before,
+*::after {
+	box-sizing: inherit;
+}   
+
+html {
+	box-sizing: border-box;
+	scroll-behavior: smooth;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+
+	font-family: 'FivoSans', "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size: 17px;
+	line-height: 20px;
+	font-weight: 400;
+	color:#3b3838;
+
+	background-image: url("../img/bg.png"),
+	url("../img/footer-img.jpg"),
+	url("../img/decorate-1.png"),
+	url("../img/decorate-2.png");
+	background-position:top  right,
+	bottom left,
+	top 57% left -80px,
+	top 63% right;
+	background-size: 100% auto,
+	100% auto,
+	231px auto,
+	150px auto;
+	background-repeat: no-repeat;
+}
+
+.visually-hidden:not(:focus):not(:active),
+input[type="checkbox"].visually-hidden,
+input[type="radio"].visually-hidden {
+	position:absolute;
+
+	width:1px;
+	height: 1px;
+	margin: -1px;
+	border:0;
+	padding: 0;
+
+	white-space:nowrap;
+
+	clip-path: inset(100%);
+	clip:rect(0 0 0 0);
+	overflow:hidden;
+}
+
+img {
+	width:100%;
+	height:auto;
+}
+
+.container {
+	max-width:1400px;
+	margin:0 auto;
+}
+
+
+@import 'header.scss';
+@import 'intro.scss';
+@import 'features.scss';
+@import 'doings.scss';
+@import 'articles.scss';
+@import 'rates.scss';
+@import 'footer.scss';
+@import 'modal-login.scss';
