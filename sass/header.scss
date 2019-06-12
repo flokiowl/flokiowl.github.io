@@ -1,8 +1,15 @@
+
 .header {
 	font-family: inherit;
 	color:#fff;
 	background-color:$dark;
-	border-bottom-left-radius: 20px;
+	min-height:600px;
+}
+
+@media (max-width:767px) {
+	.header {
+		min-height:400px;
+	}
 }
 
 .header__wrapper {
@@ -12,14 +19,8 @@
 	align-items:center;
 
 	width:100%;
-	min-height:100vh;
-	position:fixed;
-	top:0;
-	left:0;
-	right:0;
-
-	z-index: -2;
-	background-color:$dark;
+	height: 400px;
+	background-color:transparent;
 }
 
 .header__logo {
@@ -29,14 +30,10 @@
 .header__title {
 	font-size: 42px;
 	line-height: 42px;
-	margin-top: -80px;
 	margin-bottom: 20px;
 }
 
 @media (min-width:768px) {
-	.header {
-		border-bottom-left-radius: 200px;
-	}
 	.header__wrapper {
 		display:flex;
 		justify-content: flex-end;

@@ -1,11 +1,14 @@
 .portfolio {
 	width:100%;
-	padding:80px 40px 40px 40px;
+	padding:80px 10px 40px 10px;
 	background-color:#fff;
 }
 
 .portfolio__title {
 	@include title;
+}
+.portfolio__text {
+	font-size: 16px;
 }
 .portfolio__list {
 	margin: 0;
@@ -15,59 +18,107 @@
 	flex-direction: column;
 }
 .portfolio__item {
-	max-width:517px;
+	width:100%;
+	max-width:600px;
+	height:400px;
 	margin: 0 auto;
 	margin-bottom: 20px;
-	position:relative;
+
 	overflow:hidden;
 
-	box-shadow: 0 0 10px 1px rgba(0,0,0,.3);
-	border-radius:5px;
+	border:1px solid rgba(30,30,30,.2);
+}
+.portfolio__item.cat-energy {
+	background:url('../img/cat-ener.jpg');
+	background-repeat: no-repeat;
+	background-position: cover;
+	.portfolio__project {
+		background-color:rgba(#5eaa2f,.9);
+	}
+}
+.portfolio__item.mairala {
+	background:url('../img/mairala.jpg');
+	background-repeat: no-repeat;
+	background-position: cover;
+	.portfolio__project {
+		background-color:rgba(0,0,0,.9);
+	}
+}
+.portfolio__item.rizor {
+	background:url('../img/rizor.jpg');
+	background-repeat: no-repeat;
+	background-position: cover;
+	.portfolio__project {
+		background-color:rgba(#3a2ff8,.9);
+	}
+}
+.portfolio__item.beryoga {
+	background:url('../img/beryoga.jpg');
+	background-repeat: no-repeat;
+	background-position: cover;
+	.portfolio__project {
+		background-color:rgba(255,71,75,.9);
+	}
 }
 .portfolio__project {
 	display:flex;
 	flex-wrap: wrap;
-	flex-direction: row;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
 
 	width:100%;
 	height:100%;
-	padding:10px 10px;
-	position:absolute;
-	bottom:-100%;
-	left:0;
+	padding:25px;
+	padding-top: 10px;
 
 	color:#fff;
-	background-color:rgba(15,15,15,.9);
-	transition: all .5s ease;
+	position:relative;
+}
+.portfolio__project-title {
+	width:100%;
+	height:20px;
+	margin-bottom: 20px;
+
+	font-size: 25px;
+	line-height: 35px;
+	font-weight: 700;
 }
 .portfolio__description {
-	@include base-font;
-	width:100%;
-	font-size: 11px;
+	position: absolute;
+	top:60px;
+	left:30px;
+	font-size: 13px;
+	font-style: italic;
+}
+.portfolio__project-text {
+	font-size: 16px;
+	text-align: center;
+	line-height: 20px;
 }
 .portfolio__view {
-	width:100%;
+	width:40%;
+	margin: 0 auto;
 	display:flex;
-	align-self:flex-end;
-	justify-content: center;
+	justify-content: space-around;
+
+
 }
 .btn {
-	min-width:120px;
-	min-height:40px;
+	width:50px;
+	height:50px;
 	margin-bottom: 10px;
 	border:1px solid #fff;
-	border-radius:5px;
+	border-radius:50%;
 	color:#fff;
 	font-family:'Montserrat', sans-seif;
-	font-size: 11px;
-	line-height: 40px;
+	font-size: 25px;
+	line-height: 50px;
 	text-align: center;
 	text-decoration: none;
 	transition:all .4s ease;
 	&:hover {
-		border-color: $red;
-		font-size: 11.5px;
-		transition:all .5s ease;
+		border-color: transparent;
 	}
 }
 .portfolio__codeview {
@@ -77,10 +128,6 @@
 .portfolio__pageview {
 	margin-bottom: 10px;
 	align-self:flex-end;
-}
-.portfolio__item:hover .portfolio__project {
-	bottom:0;
-	transition: bottom .5s ease;
 }
 
 @media (min-width:768px) {
@@ -92,44 +139,66 @@
 	}
 	.portfolio__list {
 		flex-direction: row;
+		justify-content: space-between;
 		flex-wrap: wrap;
 	}
 	.portfolio__item {
-		max-width: 45%;
-		margin-right: auto;
+		width:45%;
+		max-width:450px;
+		height:300px;
+		margin:0 auto;
+		margin-bottom: 20px;
+		&:hover .portfolio__project {
+			font-size: 25px;
+			opacity: 1;
+			visibility: visible;
+			transition: all .3s ease;
+		}
+	}
+	.portfolio__item.cat-energy,
+	.portfolio__item.rizor,
+	.portfolio__item.beryoga,
+	.portfolio__item.mairala {
+		background-size: auto 100%;
+	}
+	.portfolio__project {
+		font-size: 0;
+		opacity: 0;
+		visibility: hidden;
+		transition: all .3s ease;
 	}
 	.portfolio__description {
-		font-size: 12px;
+		right:30px;
+		left:auto;
 	}
 	.btn {
-		min-width: 140px;
-		font-size: 12px;
 		margin-bottom: 0;
+		width:50px;
+		height:50px;
+		font-size: 25px;
 	}
 }
 
 @media (min-width:1200px) {
 	.portfolio {
-		border-bottom-right-radius:5%;
-		border-bottom-left-radius:5%;
+		border-bottom-right-radius: 50px;
+		border-bottom-left-radius: 50px;
 	}
 	.portfolio__text {
 		max-width:700px;
 		margin-bottom: 50px;
-		font-size: 20px;
+		font-size: 18px;
 	}
 	.portfolio__item {
-		max-width:50%;
+		max-width:600px;
+		height:400px;
 	}
 	.portfolio__description {
 		font-size: 16px;
+		right:auto;
+		left:30px;
 	}
 	.btn {
-		min-width: 180px;
-		font-size: 16px;
 		margin-bottom: 0;
-		&:hover {
-			font-size: 16.5px;
-		}
 	}
 }

@@ -7,6 +7,7 @@
 
 	display:flex;
 	flex-direction: column;
+	overflow: hidden;
 }
 .footer__intro {
 	width:100%;
@@ -19,11 +20,6 @@
 	margin-right: 20px;
 	color:#fff;
 	transition:all .5s ease;
-	&:hover {
-		color:#e25b5f;
-		transform:scale(1.3);
-		transition:all .5s ease;
-	}
 }
 .footer__wrapper {
 	width:100%;
@@ -60,9 +56,14 @@
 	display:flex;
 	justify-content: center;
 	width:100%;
-	margin: 30px;
+	margin-top: 30px;
 	padding: 30px;
 	list-style: none;
+	.footer__icon:hover {
+		color:#e25b5f;
+		transform:scale(1.3);
+		transition:all .5s ease;
+	}
 }
 
 @media (min-width:768px) {
@@ -80,7 +81,6 @@
 	}
 	.footer__wrapper {
 		width:35%;
-		// margin-top: 100px;
 	}
 	.footer__item {
 		margin-right: 10px;

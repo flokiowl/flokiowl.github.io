@@ -4,7 +4,6 @@
 	padding-top:80px;
 	padding-left: 15px;
 	padding-right: 15px;
-	margin-top: 100vh;
 	background-color: #fff;
 	color:#151515;
 
@@ -16,30 +15,34 @@
 .about-me__wrapper {
 	display:flex;
 	flex-direction: column;
-	padding-right:20px;
 	padding-top:0;
 }
 .about-me__photo {
 	max-height:250px;
-	margin-right:20px;
-	margin-bottom: 20px;
-	z-index: 1;
-	float:left;
-	border-radius: 20px;
+	margin-right:25px;
+	margin-left: calc(50% - 125px);
+	margin-bottom: 25px;
+	// float:left;
+	border-radius: 150px;
+}
+.about-me__description {
+	display:block;
+	// max-width:1000px;
+	margin:0 auto;
+	// padding-top: 20px;
+	// padding-left: 300px;
+
+	font-size: 16px;
+	line-height: 24px;
+	text-indent: 20px;
 }
 .about-me__skill {
+	width:100%;
 	display:flex;
 	flex-direction: row;
+	justify-content: space-between;
 	flex-wrap: wrap;
 	margin-bottom: 40px;
-	img {
-		width:50px;
-		height:50px;
-		margin-right: 10px;
-		&:hover {
-			opacity:0.5;
-		}
-	}
 	h3 {
 		width:100%;
 		margin: 0;
@@ -75,15 +78,21 @@
 	.about-me { 
 		padding-left: 30px;
 		padding-right: 30px;
-		border-top-right-radius:5%;
-		border-top-left-radius:5%;
 	}
 	.about-me__photo {
-		max-height:400px;
+		max-height:370px;
+		margin-right:20px;
+		margin-bottom: 5px;
+		margin-left: 0;
+		float:left;
+		border-radius: 5px;
+	}
+	.about-me__description {
+		max-width: 1000px;
+		padding-top: 10px;
 	}
 	.about-me__sect {
 		width:45%;
-		margin-right: auto;
 	}
 }
 
@@ -91,9 +100,20 @@
 	.about-me {
 		padding-left: 45px;
 		padding-right: 45px;
+
+		border-top-right-radius: 50px;
+		border-top-left-radius: 50px;
+	}
+	.about-me__photo {
+		max-height: 400px;
+	}
+	.about-me__description {
+		max-width:1000px;
+		padding-top: 20px;
+		padding-left: 300px;
+		font-size: 18px;
 	}
 	.about-me__sect {
 		width:22%;
-		margin-right: auto;
 	}
 }

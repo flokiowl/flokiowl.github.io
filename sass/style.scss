@@ -12,16 +12,15 @@ html {
 }
 body {
 	margin: 0;
-	margin-top: 60px;
 	padding: 0;
 
-	font-family: 'Montserrat', "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-family: 'Montserrat', Arial, sans-serif;
 	font-size: 16px;
 	line-height: 18px;
 	font-weight: 400;
 	color:#151515;
 
-	background-color: #fff;
+	background-color: #252525;
 }
 img {
 	max-width:100%;
@@ -45,8 +44,16 @@ input[type="radio"].visually-hidden {
 	overflow:hidden;
 }
 
+@media (min-width:1300px) {
+	.container {
+		margin:0 auto;
+		padding:0 10px;
+		max-width:1300px;
+	}
+}
+
 @mixin title {
-	width:auto;
+	width:100%;
 	margin: 0;
 	margin-left: 10px;
 	margin-bottom: 80px;
@@ -63,7 +70,7 @@ input[type="radio"].visually-hidden {
 		height:2px;
 		position:absolute;
 		bottom:-40px;
-		left:-40px;
+		left:-10px;
 		background-color:$red;
 	}
 }

@@ -7,9 +7,6 @@
 		width:100%;
 		min-height:60px;
 
-		position: fixed;
-		top:0;
-		left:0;
 		background-color:$dark;
 		z-index: 17;
 	}
@@ -150,27 +147,27 @@
 @media (min-width:768px) {
 	.main-navigation {
 		width:100%;
-		position: fixed;
-		top:40px;
 		display:flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		z-index: -1;
 	}
 	.main-navigation__top {
-		margin-bottom: 50px;
+		margin-bottom: 45px;
+		margin-top: 45px;
 	}
 	.main-navigation__list {
 		margin: 0;
+		margin-bottom: 100px;
 		padding: 10px;
+		min-width:500px;
 		display:flex;
+		justify-content: space-between;
 		border-bottom:1px solid $red;
 	}
 	.main-navigation__item {
 		position: relative;
 		list-style: none;
-		margin: 0 10px;
 		&::before {
 			content:'';
 			position:absolute;
@@ -179,7 +176,6 @@
 			width:200px;
 			height:230px;
 			background:#00f;
-			z-index:-1;
 			opacity:0;
 			transition:0.5s;
 			transform:translateY(100px);
@@ -191,20 +187,19 @@
 			transform:translateY(0);
 		}
 		&:nth-child(1)::before {
-			background:url("../img/about-me-menu.jpg");
+			background:url("../img/about-me-menu2.jpg");
 			background-size:cover;
 		}
 		&:nth-child(2)::before {
-			background:url("../img/about-me-menu2.jpg");
+			left:-30px;
+			background:url("../img/portfolio-menu.jpg");
 			background-size:cover;
-			background-repeat: no-repeat;
-			background-position: center;
+			background-position:top left -70px;
 		}
 		&:nth-child(3)::before {
+			left:-30px;
 			background:url("../img/contacts-menu.jpg");
 			background-size:cover;
-			background-repeat: no-repeat;
-			background-position: center;
 		}
 	}
 	.main-navigation__link {
