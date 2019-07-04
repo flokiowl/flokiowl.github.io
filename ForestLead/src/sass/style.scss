@@ -1,0 +1,68 @@
+html {
+    margin-right: 0;
+}
+body { 
+    margin: 0;
+    padding: 0;
+
+    background-color: #000;
+    color:#fff;
+
+    font-family: 'Raleway', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+
+    background:linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../img/slider-bg.jpg');
+    background-size:100% 1089px;
+    background-repeat: no-repeat;
+    background-position: top left;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    color:inherit;
+    text-decoration: none;
+}
+
+// img {
+//     width:100%;
+//     height:auto;
+// }
+
+
+@media (min-width:1230px) {
+  .container {
+        max-width:1230px;
+        margin:0 auto;
+    }  
+}
+
+@media (max-width:1300px) {
+    body {
+        background-size:100% 900px;
+        background-position: top center;
+    }
+}
+@media (max-width:767px) {
+    body {
+       background-size:100% 720px; 
+    }
+}
+
+
+@import 'nav.scss';
+@import 'slider.scss';
+@import 'services.scss';
+@import 'realization.scss';
+@import 'projects.scss';
+@import 'counter.scss';
+@import 'mobile.scss';
+@import 'partners.scss';
+@import 'footer.scss';
+
+

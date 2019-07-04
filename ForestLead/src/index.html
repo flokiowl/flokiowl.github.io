@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,800&display=swap" rel="stylesheet">
+	<title>ForestLead test</title>
+</head>
+<body>
+
+	<svg style="display:none">
+		<symbol id="link-svg" viewBox="0 0 26 26">
+			<g>
+				<g>
+					<path d="M23.5 11.242l-1.927 1.928-3.187 3.189c-.153.17-.34.324-.511.46a6.24 6.24 0 0 1-6.153.904 6.035 6.035 0 0 1-2.08-1.364l2.642-2.644a2.447 2.447 0 0 0 3.46 0l2.028-2.029L20.857 8.6a2.447 2.447 0 1 0-3.46-3.462l-2.454 2.456a7.067 7.067 0 0 0-4.908-.376l4.72-4.724C17.16.09 21.097.09 23.5 2.493c2.42 2.421 2.42 6.344 0 8.749zm-7.654 7.607l-4.618 4.672c-2.403 2.406-6.34 2.406-8.744 0-2.403-2.404-2.403-6.344 0-8.747l5.113-5.118c.068-.068.154-.153.239-.222a6.191 6.191 0 0 1 6.426-1.141c.75.289 1.465.75 2.079 1.363l-2.642 2.645a2.446 2.446 0 0 0-3.46 0l-5.113 5.114a2.447 2.447 0 1 0 3.46 3.463l2.352-2.354c2.011.803 2.557.87 4.908.325z"/>
+					<path d="M23.5 11.242l-1.927 1.928-3.187 3.189c-.153.17-.34.324-.511.46a6.24 6.24 0 0 1-6.153.904 6.035 6.035 0 0 1-2.08-1.364l2.642-2.644a2.447 2.447 0 0 0 3.46 0l2.028-2.029L20.857 8.6a2.447 2.447 0 1 0-3.46-3.462l-2.454 2.456a7.067 7.067 0 0 0-4.908-.376l4.72-4.724C17.16.09 21.097.09 23.5 2.493c2.42 2.421 2.42 6.344 0 8.749zm-7.654 7.607l-4.618 4.672c-2.403 2.406-6.34 2.406-8.744 0-2.403-2.404-2.403-6.344 0-8.747l5.113-5.118c.068-.068.154-.153.239-.222a6.191 6.191 0 0 1 6.426-1.141c.75.289 1.465.75 2.079 1.363l-2.642 2.645a2.446 2.446 0 0 0-3.46 0l-5.113 5.114a2.447 2.447 0 1 0 3.46 3.463l2.352-2.354c2.011.803 2.557.87 4.908.325z"/>
+				</g>
+			</g>
+		</symbol>
+		<symbol id="lupa-svg" viewBox="0 0 26 25">
+			<g>
+				<g>
+					<path d="M17.417 7.847c.318.643.047 1.42-.607 1.734-.185.087-.381.13-.576.13-.487 0-.954-.267-1.182-.728a4.147 4.147 0 0 0-3.748-2.31c-.726 0-1.315-.579-1.315-1.296 0-.714.589-1.296 1.315-1.296 2.62 0 4.964 1.444 6.113 3.766zm8.04 16.324a1.647 1.647 0 0 1-1.164.474 1.65 1.65 0 0 1-1.163-.474l-4.335-4.27a11.218 11.218 0 0 1-6.836 2.317C5.793 22.218.777 17.276.777 11.202S5.793.185 11.96.185 23.14 5.128 23.14 11.202c0 2.37-.77 4.562-2.068 6.361l4.383 4.318a1.602 1.602 0 0 1 0 2.29zM11.96 19.627c2.104 0 4.03-.757 5.521-2.003.46-.385.874-.819 1.243-1.289a8.288 8.288 0 0 0 1.786-5.133c0-4.645-3.836-8.424-8.55-8.424-4.715 0-8.551 3.779-8.551 8.424s3.836 8.424 8.55 8.425z"/><path d="M17.417 7.847c.318.643.047 1.42-.607 1.734-.185.087-.381.13-.576.13-.487 0-.954-.267-1.182-.728a4.147 4.147 0 0 0-3.748-2.31c-.726 0-1.315-.579-1.315-1.296 0-.714.589-1.296 1.315-1.296 2.62 0 4.964 1.444 6.113 3.766zm8.04 16.324a1.647 1.647 0 0 1-1.164.474 1.65 1.65 0 0 1-1.163-.474l-4.335-4.27a11.218 11.218 0 0 1-6.836 2.317C5.793 22.218.777 17.276.777 11.202S5.793.185 11.96.185 23.14 5.128 23.14 11.202c0 2.37-.77 4.562-2.068 6.361l4.383 4.318a1.602 1.602 0 0 1 0 2.29zM11.96 19.627c2.104 0 4.03-.757 5.521-2.003.46-.385.874-.819 1.243-1.289a8.288 8.288 0 0 0 1.786-5.133c0-4.645-3.836-8.424-8.55-8.424-4.715 0-8.551 3.779-8.551 8.424s3.836 8.424 8.55 8.425z"/></g>
+				</g>
+		</symbol>
+	</svg>
+
+	<header class="main-header container" id="header">
+		<nav class="nav">
+			<button class="nav__button"><span class="nav__button--burger"></span></button>
+			<ul class="nav__list">
+				<li class="nav__item logo">
+					<a href="#" class="nav__logo-link">
+						<img src="img/logos.svg" alt="Waxom logotype" width="64" height="56">
+						<p class="nav__logo-name">Waxom</p>
+					</a>
+				</li>
+				<li class="nav__item">
+					<a href="#header" class="nav__link">Home</a>
+				</li>
+				<li class="nav__item">
+					<a href="#services" class="nav__link">About Us</a>
+				</li>
+				<li class="nav__item">
+					<a href="#count" class="nav__link">Stats</a>
+				</li>
+				<li class="nav__item">
+					<a href="#projects" class="nav__link">Projects</a>
+				</li>
+				<li class="nav__item">
+					<a href="#mobile" class="nav__link">Features</a>
+				</li>
+				<li class="nav__item">
+					<a href="#partners" class="nav__link">Partners</a>
+				</li>
+			</ul>
+		</nav>
+	</header>
+
+	<main class="main">
+		<section id="block-for-slider">
+			<div id="viewport">
+	            <ul id="slidewrapper">
+	                <li class="slide"> 
+	                	<p class="slide__slogan">Unique and Modern Design-1</p>
+	                	<h2 class="slide__title">Portfolio PSD Template</h2>
+	                	<p class="slide__text">Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
+	                	<a href="#" class="slide__link">Get Started</a>
+	                </li>
+	                <li class="slide">
+	                	<p class="slide__slogan">Unique and Modern Design-2</p>
+	                	<h2 class="slide__title">Portfolio PSD Template</h2>
+	                	<p class="slide__text">Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
+	                	<a href="#" class="slide__link">Get Started</a>
+	                </li>
+	                <li class="slide">
+	                	<p class="slide__slogan">Unique and Modern Design-3</p>
+	                	<h2 class="slide__title">Portfolio PSD Template</h2>
+	                	<p class="slide__text">Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
+	                	<a href="#" class="slide__link">Get Started</a>
+	                </li>
+	                <li class="slide">
+	                	<p class="slide__slogan">Unique and Modern Design-4</p>
+	                	<h2 class="slide__title">Portfolio PSD Template</h2>
+	                	<p class="slide__text">Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
+	                	<a href="#" class="slide__link">Get Started</a>
+	                </li>
+	                <li class="slide">
+	                	<p class="slide__slogan">Unique and Modern Design-5</p>
+	                	<h2 class="slide__title">Portfolio PSD Template</h2>
+	                	<p class="slide__text">Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
+	                	<a href="#" class="slide__link">Get Started</a>
+	                </li>
+	            </ul>
+
+	            <div id="prev-next-btns">
+	                <div id="prev-btn"></div>
+	                <div id="next-btn"></div>
+            	</div>
+
+            	<ul id="nav-btns">
+	                <li class="slide-nav-btn btn-1 current"></li>
+	                <li class="slide-nav-btn btn-2"></li>
+	                <li class="slide-nav-btn btn-3"></li>
+	                <li class="slide-nav-btn btn-4"></li>
+	                <li class="slide-nav-btn btn-5"></li>
+	            </ul>
+        	</div>
+		</section>
+		<section class="services container" id="services">
+			<ul class="services__list">
+				<li class="services__item">
+					<div class="services__img-wrapper">
+						<img src="img/services-1.svg" alt="Web&App design" width="49" height="49">
+					</div>
+					<h3 class="services__item-title">Web & App Design</h3>
+					<p class="services__item-text">Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim.</p>
+				</li>
+				<li class="services__item development">
+					<div class="services__img-wrapper">
+						<img src="img/services-2.svg" alt="Development" width="44" height="40">
+					</div>
+					<h3 class="services__item-title">Development</h3>
+					<p class="services__item-text">Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim.</p>
+				</li>
+				<li class="services__item">
+					<div class="services__img-wrapper">
+						<img src="img/services-3.svg" alt="Customization" width="44" height="44">
+					</div>
+					
+					<h3 class="services__item-title">Customization</h3>
+					<p class="services__item-text">Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim.</p>
+				</li>
+				<li class="services__item">
+					<div class="services__img-wrapper">
+						<img src="img/services-4.svg" alt="Marketing" width="52" height="36">
+					</div>
+					<h3 class="services__item-title">Marketing</h3>
+					<p class="services__item-text">Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim.</p>
+				</li>
+			</ul>
+		</section>
+		<section class="realization">
+			<div class="container">
+				<h2 class="realization__title">Waxom is Realization of your Ideas.</h2>
+				<p class="realization__text">Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium.</p>
+				<div class="realization__img-wrapper">
+					<img class="realization__image first-img" src="img/real-1.jpg" alt="1" width="770" height="400">
+					<img class="realization__image second-img" src="img/real-2.jpg" alt="2" width="770" height="482">
+					<img class="realization__image third-img" src="img/real-3.jpg" alt="3" width="770" height="400">
+				</div>
+			</div>
+			<div class="realization__wordpress">
+				<div class="container">
+					<div class="realization__text-wrapper">
+						<h3 class="realization__wordpress-title"><span>Waxom</span> Multipurpose WordPress Theme</h3>
+						<p class="realization__wordpress-text">Don't Forget to Rate the Template. Thanks so much!</p>
+					</div>
+					<a href="#" class="realization__purchase-link">Purchase Now</a>
+				</div>
+			</div>
+		</section>
+		<section class="projects container" id="projects">
+			<h2 class="projects__title">Our Latest Projects.</h2>
+			<p class="projects__text">Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius. Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium.</p>
+			<ul class="projects__tabs">
+				<li class="projects__tab">
+					<button class="projects__tab-btn all active">All</button>
+				</li>
+				<li class="projects__tab">
+					<button class="projects__tab-btn web-design">Web Design</button>
+				</li>
+				<li class="projects__tab">
+					<button class="projects__tab-btn mobile-app">Mobile App</button>
+				</li>
+				<li class="projects__tab">
+					<button class="projects__tab-btn illustration">Illustration</button>
+				</li>
+				<li class="projects__tab">
+					<button class="projects__tab-btn photography">Photography</button>
+				</li>
+			</ul>
+			<div class="projects__list">
+				<div class="projects__item" data-name="photography">
+					<div class="projects__hover project-1">
+						<ul class="projects__menu">
+							<li class="projects__menu-item">
+								<a class="projects__menu-link" href="#">
+									<svg width="26" height="26" viewBox="0 0 26 26">
+										<use class="projects__menu-icon" xlink:href="#link-svg"></use>
+									</svg>
+								</a>
+							</li>
+							<li class="projects__menu-item">
+								<a class="projects__menu-link" href="#">
+									<svg width="26" height="25" viewBox="0 0 26 25">
+										<use class="projects__menu-icon" xlink:href="#lupa-svg"></use>
+									</svg>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="projects__text-wrapper">
+						<h4 class="projects__item-title">Claritas Etiam Processus</h4>
+						<p class="projects__item-text">Photography, Nature</p>
+					</div>
+				</div>
+				<div class="projects__item" data-name="graphic">
+					<div class="projects__hover project-2">
+						<ul class="projects__menu">
+							<li class="projects__menu-item">
+								<a class="projects__menu-link" href="#">
+									<svg width="26" height="26" viewBox="0 0 26 26">
+										<use class="projects__menu-icon" xlink:href="#link-svg"></use>
+									</svg>
+								</a>
+							</li>
+							<li class="projects__menu-item">
+								<a class="projects__menu-link" href="#">
+									<svg width="26" height="25" viewBox="0 0 26 25">
+										<use class="projects__menu-icon" xlink:href="#lupa-svg"></use>
+									</svg>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="projects__text-wrapper">
+						<h4 class="projects__item-title">Quam Nutamus Farum</h4>
+						<p class="projects__item-text">Graphic Design, Mock-Up</p>
+					</div>
+				</div>
+				<div class="projects__item" data-name="photography">
+					<div class="projects__hover project-3">
+						<ul class="projects__menu">
+							<li class="projects__menu-item">
+								<a class="projects__menu-link" href="#">
+									<svg width="26" height="26" viewBox="0 0 26 26">
+										<use class="projects__menu-icon" xlink:href="#link-svg"></use>
+									</svg>
+								</a>
+							</li>
+							<li class="projects__menu-item">
+								<a class="projects__menu-link" href="#">
+									<svg width="26" height="25" viewBox="0 0 26 25">
+										<use class="projects__menu-icon" xlink:href="#lupa-svg"></use>
+									</svg>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="projects__text-wrapper">
+						<h4 class="projects__item-title">Usus Legentis Videntur</h4>
+						<p class="projects__item-text">Photography, Holiday</p>
+					</div>
+				</div>
+				<div class="projects__item" data-name="photography">
+					<div class="projects__hover project-4">
+						<ul class="projects__menu">
+							<li class="projects__menu-item">
+								<a class="projects__menu-link" href="#">
+									<svg width="26" height="26" viewBox="0 0 26 26">
+										<use class="projects__menu-icon" xlink:href="#link-svg"></use>
+									</svg>
+								</a>
+							</li>
+							<li class="projects__menu-item">
+								<a class="projects__menu-link" href="#">
+									<svg width="26" height="25" viewBox="0 0 26 25">
+										<use class="projects__menu-icon" xlink:href="#lupa-svg"></use>
+									</svg>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="projects__text-wrapper">
+						<h4 class="projects__item-title">Claritas Etiam Processus</h4>
+						<p class="projects__item-text">Photography, Nature</p>
+					</div>
+				</div>
+				<div class="projects__item" data-name="graphic">
+					<div class="projects__hover project-5">
+						<ul class="projects__menu">
+							<li class="projects__menu-item">
+								<a class="projects__menu-link" href="#">
+									<svg width="26" height="26" viewBox="0 0 26 26">
+										<use class="projects__menu-icon" xlink:href="#link-svg"></use>
+									</svg>
+								</a>
+							</li>
+							<li class="projects__menu-item">
+								<a class="projects__menu-link" href="#">
+									<svg width="26" height="25" viewBox="0 0 26 25">
+										<use class="projects__menu-icon" xlink:href="#lupa-svg"></use>
+									</svg>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="projects__text-wrapper">
+						<h4 class="projects__item-title">Quam Nutamus Farum</h4>
+						<p class="projects__item-text">Graphic Design, Mock-Up</p>
+					</div>
+				</div>
+				<div class="projects__item" data-name="photography">
+					<div class="projects__hover project-6">
+						<ul class="projects__menu">
+							<li class="projects__menu-item">
+								<a class="projects__menu-link" href="#">
+									<svg width="26" height="26" viewBox="0 0 26 26">
+										<use class="projects__menu-icon" xlink:href="#link-svg"></use>
+									</svg>
+								</a>
+							</li>
+							<li class="projects__menu-item">
+								<a class="projects__menu-link" href="#">
+									<svg width="26" height="25" viewBox="0 0 26 25">
+										<use class="projects__menu-icon" xlink:href="#lupa-svg"></use>
+									</svg>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="projects__text-wrapper">
+						<h4 class="projects__item-title">Usus Legentis Videntur</h4>
+						<p class="projects__item-text">Photography, Holiday</p>
+					</div>
+				</div>
+			</div>
+			<button class="projects__button">Load More</button>
+		</section>
+		<section class="counter" id="count">
+			<div class="container">
+				<ul class="counter__list">
+					<li class="counter__item">
+						<img class="counter__icon" src="img/clients-icon.svg" alt="1" width="44" height="44">
+						<span class="counter__number" data-from="0" data-to="3587" data-speed="2000" data-refresh-interval="50">0</span>
+						<p class="counter__description">Satisfied Clients</p>
+					</li>
+					<li class="counter__item">
+						<img class="counter__icon" src="img/coffee-icon.svg" alt="2" width="48" height="44">
+						<span class="counter__number" data-from="0" data-to="207" data-speed="2200" data-refresh-interval="50">0</span>
+						<p class="counter__description">Cups of coffee</p>
+					</li>
+					<li class="counter__item">
+						<img class="counter__icon" src="img/blog-icon.svg" alt="3" width="44" height="44">
+						<span class="counter__number" data-from="0" data-to="2500" data-speed="2400" data-refresh-interval="50">0</span>
+						<p class="counter__description">Blog posts</p>
+					</li>
+					<li class="counter__item">
+						<img class="counter__icon" src="img/likes-icon.svg" alt="4" width="44" height="44">
+						<span class="counter__number" data-from="0" data-to="873" data-speed="2600" data-refresh-interval="50">0</span>
+						<p class="counter__description">Likes</p>
+					</li>
+					<li class="counter__item">
+						<img class="counter__icon" src="img/cookie-icon.svg" alt="5" width="54" height="44">
+						<span class="counter__number" data-from="0" data-to="900" data-speed="2800" data-refresh-interval="50">0</span>
+						<p class="counter__description">We launched</p>
+					</li>
+				</ul>
+			</div>
+		</section>
+		<section class="mobile" id="mobile">
+			<div class="container">
+				<img class="mobile__image" src="img/mobile-image.png" alt="Website in phone">
+				<div class="mobile__text-wrapper">
+					<h2 class="mobile__title">Excellent for Mobile Devices.</h2>
+					<p class="mobile__text">Qisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius claritas. Eodem modo typi, qui nunc nobis videntur parum clari, fiant sollemnes in futurum.</p>
+					<ul class="mobile__list">
+						<li class="mobile__item"><span class="mobile__item--arrow"></span>Nam liber tempor cum soluta nobis eleifend option;</li>
+						<li class="mobile__item"><span class="mobile__item--arrow"></span>Option congue nihil imperdiet doming id quod mazim placerat facer;</li>
+						<li class="mobile__item"><span class="mobile__item--arrow"></span>Eodem modo typi, qui nunc nobis videntur parum futurum;</li>
+						<li class="mobile__item"><span class="mobile__item--arrow"></span>Investigationes demonstraverunt lectores;</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+		<section class="partners" id="partners">
+			<ul class="partners__list container">
+				<li class="partners__item">
+					<a href="#" class="partners__link">
+						<img class="partners__image" src="img/partner-logo-1.svg" alt="Barber -Haircuts-">
+					</a>
+				</li>
+				<li class="partners__item">
+					<a href="#" class="partners__link">
+						<img class="partners__image" src="img/partner-logo-2.svg" alt="Delicious">
+					</a>
+				</li>
+				<li class="partners__item">
+					<a href="#" class="partners__link">
+						<img class="partners__image" src="img/partner-logo-3.svg" alt="Designers">
+					</a>
+				</li>
+				<li class="partners__item">
+					<a href="#" class="partners__link">
+						<img class="partners__image" src="img/partner-logo-4.svg" alt="Cafe Royal Roasters">
+					</a>
+				</li>
+			</ul>
+		</section>
+	</main>
+	<footer class="footer">
+		<div class="container">
+			<ul class="footer__main-list">
+				<li class="footer__item">
+					Copyright © 2015 <a class="footer__link" href="#">Waxom</a>
+				</li>
+				<li class="footer__item">
+					<a href="#">Privacy Policy</a>
+				</li>
+				<li class="footer__item">
+					<a href="#">FAQ</a>
+				</li>
+				<li class="footer__item">
+					<a href="#">Support</a>
+				</li>
+			</ul>
+			<ul class="footer__author-list">
+				<li class="footer__author-item">
+					Designed by <a class="footer__link" href="#">ThemeFire</a>
+				</li>
+				<li class="footer__author-item">
+					Only on <a class="footer__link" href="#">Envato Market</a>
+				</li>
+			</ul>
+		</div>
+	</footer>
+	<script
+	  src="https://code.jquery.com/jquery-3.4.1.min.js"
+	  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+	  crossorigin="anonymous"></script>
+	<script src="js/masonry.pkgd.min.js"></script>
+	<script src="js/jquery.countTo.js"></script>
+
+	<script src="js/slider.js"></script>
+	<script src="js/projects.js"></script>
+	<script src="js/counter.js"></script>
+	<script src="js/main.js"></script>
+</body>
+</html>

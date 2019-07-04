@@ -1,0 +1,140 @@
+.realization {
+	padding-top: 125px;
+	color:#555555;
+}
+.realization__title {
+	margin: 0;
+	margin-bottom: 20px;
+	font-size: 30px;
+	font-weight: 600;
+	text-align: center;
+	letter-spacing: 1.3px;
+}
+.realization__text {
+	width: 767px;
+	margin:0 auto;
+	margin-bottom: 45px;
+
+	color: #8c8c8c;
+	font-family: Montserrat;
+	font-size: 16px;
+	font-weight: 300;
+	line-height: 28px;
+	text-align: center;
+}
+.realization__img-wrapper {
+	width:100%;
+	min-height:482px;
+	position: relative;
+}
+.realization__image {
+	position: absolute;
+}
+.realization__image.first-img {
+	left:0;
+	top:82px;
+}
+.realization__image.second-img {
+	left:230px;
+	top:0;
+	z-index:1;
+}
+.realization__image.third-img {
+	right:0;
+	top:82px;
+}
+.realization__wordpress {
+	width:100%;
+	min-height:150px;
+
+	background-image: linear-gradient(to right, #211b19 0%, #4e3427 100%);
+	.container {
+		display:flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
+}
+.realization__text-wrapper {
+	margin-left: 30px;
+}
+.realization__wordpress-title {
+	color:#fff;
+	font-size: 28px;
+	margin: 0;
+	padding-top: 48px;
+	font-weight: 400;
+	span {
+		color: #c7b299;
+	}
+}
+.realization__wordpress-text {
+	margin: 0;
+	margin-top: 8px;
+	font-size: 18px;
+	font-weight: 300;
+}
+.realization__purchase-link {
+	width: 170px;
+	height: 50px;
+	margin-top: 50px;
+	margin-right: 30px;
+	box-shadow: inset 0 -3px 0 #736357;
+	border-radius: 3px;
+	background-color: #998675;
+
+	font-size: 14px;
+	text-transform: uppercase;
+	font-weight: 800;
+	color:#fff;
+	text-align: center;
+	line-height: 50px;
+	&:hover {
+		background-color: #74675b;
+	}
+}
+
+
+@media (max-width:1230px) {
+	.realization {
+		padding-top: 75px;
+	}
+	.realization__title {
+		font-size: 26px;
+	}
+	.realization__text {
+		width:100%;
+		font-size: 15px;
+		letter-spacing: 0;
+	}
+	.realization__image {
+		width:100%;
+		height:auto;
+		position:static;
+	}
+	.realization__wordpress-title {
+		font-size: 20px;
+	}
+	.realization__wordpress-text {
+		font-size: 16px;
+	}
+}
+
+@media (max-width:767px) {
+	.realization {
+		padding-top: 35px;
+	}
+	.realization__title {
+		padding: 0 20px;
+	}
+	.realization__wordpress-title {
+		font-size: 16px;
+	}
+	.realization__wordpress-text {
+		font-size: 12px;
+	}
+	.realization__purchase-link {
+		width:150px;
+		font-size: 12px;
+	}
+}
