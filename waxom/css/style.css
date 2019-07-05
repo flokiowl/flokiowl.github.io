@@ -939,6 +939,8 @@ a {
     color: #c7b299; }
 
 @media (max-width: 1230px) {
+  .footer {
+    padding-bottom:30px;}
   .footer .container {
     flex-direction: column; }
   .footer__main-list {
@@ -946,8 +948,7 @@ a {
     margin: 0 auto;
     margin-top: 30px; }
   .footer__author-list {
-    margin-top: 30px;
-    padding-bottom: 30px; } }
+    margin-top: 30px; } }
 
 @media (max-width: 767px) {
   .footer {
