@@ -439,7 +439,7 @@ input[type="radio"].visually-hidden {
   background: url("../img/waxom.jpg");
   background-repeat: no-repeat;
   background-position: cover; }
-   .portfolio__item.mairala .portfolio__project {
+   .portfolio__item.waxom .portfolio__project {
     background-color: rgba(0, 0, 0, 0.9); }
 .portfolio__item.cat-energy {
   background: url("../img/cat-ener.jpg");
