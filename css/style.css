@@ -435,7 +435,12 @@ input[type="radio"].visually-hidden {
   margin-bottom: 20px;
   overflow: hidden;
   border: 1px solid rgba(30, 30, 30, 0.2); }
-
+.portfolio__item.waxom {
+  background: url("../img/waxom.jpg");
+  background-repeat: no-repeat;
+  background-position: cover; }
+   .portfolio__item.mairala .portfolio__project {
+    background-color: rgba(0, 0, 0, 0.9); }
 .portfolio__item.cat-energy {
   background: url("../img/cat-ener.jpg");
   background-repeat: no-repeat;
