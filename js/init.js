@@ -128,8 +128,8 @@ function kioto_tm_about_dimension(){
 function kioto_tm_preloader(){
 	"use strict";
 	
-	var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
-	var preloader = $('#preloader');
+	const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ? true : false;
+	const preloader = $('#preloader');
 	
 	if (!isMobile) {
 	
@@ -202,23 +202,25 @@ function kioto_tm_my_load(){
 
 function kioto_tm_cursor(){
     "use strict";
-	
-	var myCursor	= jQuery('.mouse-cursor');
-	
-	if(myCursor.length){
-		if ($("body")) {
-        const e = document.querySelector(".cursor-inner"),
-            t = document.querySelector(".cursor-outer");
-        let n, i = 0,
-            o = !1;
-        window.onmousemove = function (s) {
-            o || (t.style.transform = "translate(" + s.clientX + "px, " + s.clientY + "px)"), e.style.transform = "translate(" + s.clientX + "px, " + s.clientY + "px)", n = s.clientY, i = s.clientX
-        }, $("body").on("mouseenter", "a, .toky_tm_topbar .trigger, .cursor-pointer", function () {
-            e.classList.add("cursor-hover"), t.classList.add("cursor-hover")
-        }), $("body").on("mouseleave", "a, .toky_tm_topbar .trigger, .cursor-pointer", function () {
-            $(this).is("a") && $(this).closest(".cursor-pointer").length || (e.classList.remove("cursor-hover"), t.classList.remove("cursor-hover"))
-        }), e.style.visibility = "visible", t.style.visibility = "visible"
-    }
+	const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
+	if (!isMobile) {
+		const myCursor	= jQuery('.mouse-cursor');
+
+		if(myCursor.length){
+			if ($("body")) {
+				const e = document.querySelector(".cursor-inner"),
+					t = document.querySelector(".cursor-outer");
+				let n, i = 0,
+					o = !1;
+				window.onmousemove = function (s) {
+					o || (t.style.transform = "translate(" + s.clientX + "px, " + s.clientY + "px)"), e.style.transform = "translate(" + s.clientX + "px, " + s.clientY + "px)", n = s.clientY, i = s.clientX
+				}, $("body").on("mouseenter", "a, .toky_tm_topbar .trigger, .cursor-pointer", function () {
+					e.classList.add("cursor-hover"), t.classList.add("cursor-hover")
+				}), $("body").on("mouseleave", "a, .toky_tm_topbar .trigger, .cursor-pointer", function () {
+					$(this).is("a") && $(this).closest(".cursor-pointer").length || (e.classList.remove("cursor-hover"), t.classList.remove("cursor-hover"))
+				}), e.style.visibility = "visible", t.style.visibility = "visible"
+			}
+		}
 	}
 };
 
