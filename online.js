@@ -9,7 +9,7 @@
   if (window.uaonline_ready) return;
   window.uaonline_ready = true;
 
-  var VERSION = '1.0.2';
+  var VERSION = '1.1.0';
   var PLAYER_HOSTS = /(ashdi|zetvideo|hdvbua|tortuga|makhno)/i;
   var ICON = '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
 
@@ -25,12 +25,12 @@
   /* ============================ Налаштування ========================== */
 
   var DEFAULTS = {
-    uaonline_proxy: 'https://ua-proxy.andrewgolub25.workers.dev',
+    uaonline_proxy: '',
     uaonline_hls: false,
     uaonline_uakino: 'https://uakino.best',
     uaonline_uaflix: 'https://uafix.net',
     uaonline_eneyida: 'https://eneyida.tv',
-    uaonline_uaserials: 'https://uaserials.com'
+    uaonline_kinostrain: 'https://api.kinostrain.com'
   };
 
   function cfg(key) {
@@ -52,7 +52,7 @@
       ['uaonline_uakino', 'input', 'Домен UAKino', 'Зміни, якщо сайт переїхав'],
       ['uaonline_uaflix', 'input', 'Домен UAFlix', 'Зміни, якщо сайт переїхав'],
       ['uaonline_eneyida', 'input', 'Домен Eneyida', 'Зміни, якщо сайт переїхав'],
-      ['uaonline_uaserials', 'input', 'Домен UASerials', 'Зміни, якщо сайт переїхав']
+      ['uaonline_kinostrain', 'input', 'API KinoStrain', 'Зміни, якщо сайт переїхав']
     ];
 
     params.forEach(function (p) {
@@ -146,6 +146,12 @@
       .replace(/ё/g, 'е')
       .replace(/[^a-z0-9\u0400-\u04ff]+/g, ' ')
       .trim();
+  }
+
+  function short(s, n) {
+    s = String(s || '');
+    n = n || 60;
+    return s.length > n ? s.slice(0, n - 1).trim() + '…' : s;
   }
 
   function clean(s) {
@@ -246,15 +252,42 @@
 
   function resolveItem(item) {
     if (item.file) return Promise.resolve(parseFile(item.file));
+    if (item.page && !item.player) {
+      return request(item.page, { referer: item.referer }).then(function (html) {
+        var players = findPlayers(html, item.page);
+        if (!players.length) throw new Error('на сторінці серії не знайдено плеєра');
+        item.player = players[0];
+        item.referer = item.page;
+        return resolveItem(item);
+      });
+    }
     return request(item.player, { referer: item.referer }).then(function (html) {
       var p = parsePlayerjs(html);
       if (!p) throw new Error('у плеєрі ' + hostOf(item.player) + ' не знайдено відео');
-      if (typeof p === 'string') return parseFile(p);
-      var flat = [];
-      flatten(p, {}, flat, item.player);
-      if (!flat.length) throw new Error('порожній плейлист ' + hostOf(item.player));
-      return parseFile(flat[0].file);
+      var src;
+      if (typeof p === 'string') src = parseFile(p);
+      else {
+        var flat = [];
+        flatten(p, {}, flat, item.player);
+        if (!flat.length) throw new Error('порожній плейлист ' + hostOf(item.player));
+        src = parseFile(flat[0].file);
+      }
+      src.subtitles = parseSubtitles(html);
+      return src;
     });
+  }
+
+  // subtitle:"[Українські]https://.../x.vtt,[English]https://..."
+  function parseSubtitles(html) {
+    var m = html.match(/subtitle\s*:\s*["']([^"']+)["']/);
+    if (!m) return [];
+    var out = [];
+    m[1].split(/,(?=\[)/).forEach(function (part) {
+      var mm = part.match(/^\[([^\]]*)\](.+)$/);
+      if (mm) out.push({ label: mm[1] || 'Субтитри', url: mm[2].trim() });
+      else if (/^https?:/.test(part)) out.push({ label: 'Субтитри', url: part.trim() });
+    });
+    return out;
   }
 
   function streamUrl(url, item) {
@@ -280,7 +313,11 @@
 
       var img = a.querySelector('img');
       var attr = clean(a.getAttribute('title')).replace(/^(смотреть|дивитись|дивитися)\s+/i, '').replace(/\s+онлайн$/i, '');
-      var title = clean(a.textContent) || attr || (img && img.getAttribute('alt')) || '';
+      var text = clean(a.textContent);
+      var alt = img ? clean(img.getAttribute('alt')) : '';
+      // Текст посилання іноді містить опис фільму — беремо коротшу назву
+      var title = attr || alt || text;
+      if (title.length > 120) title = short(title, 120);
 
       if (byUrl[href]) {
         if (!byUrl[href].title && title) byUrl[href].title = title;
@@ -318,22 +355,49 @@
     });
   }
 
+  var NOT_PLAYER = /(youtube|youtu\.be|google|facebook|twitter|telegram|t\.me|vk\.com|instagram|tiktok|disqus|yandex|doubleclick|ads?\.)/i;
+
   function findPlayers(html, pageUrl) {
-    var doc = parseHTML(html), found = [], seen = {};
-    function add(u) {
-      if (!u) return;
+    var doc = parseHTML(html), found = [], seen = {}, frames = [];
+    function add(u, any) {
+      if (!u || /^(about:|javascript:|data:)/i.test(u)) return;
       u = absUrl(u, pageUrl);
-      if (!PLAYER_HOSTS.test(hostOf(u)) || seen[u]) return;
+      var h = hostOf(u);
+      if (!h || seen[u]) return;
+      if (!PLAYER_HOSTS.test(h) && !(any && !NOT_PLAYER.test(h))) return;
       seen[u] = 1;
       found.push(u);
     }
-    all(doc, 'iframe').forEach(function (f) {
-      add(f.getAttribute('src'));
-      add(f.getAttribute('data-src'));
+    all(doc, 'iframe, [data-src], [data-iframe], [data-player]').forEach(function (f) {
+      ['src', 'data-src', 'data-iframe', 'data-player'].forEach(function (attr) {
+        var v = f.getAttribute(attr);
+        if (!v || !/^(https?:)?\/\//.test(v)) return;
+        if (f.tagName === 'IFRAME') frames.push(hostOf(absUrl(v, pageUrl)));
+        // будь-який iframe, крім соцмереж і реклами, вважаємо можливим плеєром
+        add(v, f.tagName === 'IFRAME' || /\/(vod|serial|embed|player)\//i.test(v));
+      });
     });
     var re = /(?:https?:)?\/\/[^"'\s<>]*?(?:ashdi|zetvideo|hdvbua|tortuga)[^"'\s<>]*?\/(?:vod|serial)\/[^"'\s<>]+/gi, m;
     while ((m = re.exec(html))) add(m[0]);
+    log('iframe на сторінці: ' + (uniq(frames).join(', ') || 'немає'));
     return found;
+  }
+
+  // Серіал розбитий на окремі сторінки серій (/season-1/episode-2/ тощо)
+  function findEpisodeLinks(html, pageUrl) {
+    var doc = parseHTML(html), out = [], seen = {};
+    var host = hostOf(pageUrl);
+    all(doc, 'a[href]').forEach(function (a) {
+      var href = absUrl(a.getAttribute('href'), pageUrl);
+      if (hostOf(href) !== host || seen[href]) return;
+      var path = decodeURIComponent(href.replace(/^https?:\/\/[^\/]+/, ''));
+      var ep = num(path, /(?:episode|seriya|seria|серія)[-_\/]?(\d+)/i);
+      if (ep === null) return;
+      seen[href] = 1;
+      var season = num(path, /(?:season|sezon|сезон)[-_\/]?(\d+)/i);
+      out.push({ voice: 'Озвучка', season: season === null ? 1 : season, episode: ep, title: clean(a.textContent), page: href, referer: pageUrl });
+    });
+    return out;
   }
 
   function expandPlayers(players, pageUrl) {
@@ -415,7 +479,97 @@
         }
         var players = findPlayers(html, pageUrl);
         log(b.title + ': плеєрів на сторінці ' + players.length);
+        if (!players.length) {
+          var eps = findEpisodeLinks(html, pageUrl);
+          if (eps.length) log(b.title + ': посилань на серії ' + eps.length);
+          return eps;
+        }
         return expandPlayers(players, pageUrl);
+      });
+    });
+  }
+
+  /* ============================== KinoStrain ============================== */
+  // Відкритий JSON API. Посилання на плеєр Ashdi лежать у seasons[].playerData.
+  // Інші плеєри (tortuga тощо) пропускаємо: там посилання зашифровані.
+
+  var KS_REF = 'https://kinostrain.com/';
+
+  function ksJson(url) {
+    return request(url, { referer: KS_REF }).then(function (txt) {
+      try { return JSON.parse(txt); } catch (e) { throw new Error('KinoStrain повернув не JSON'); }
+    });
+  }
+
+  function ksSearch(root, q) {
+    return ksJson(root + '/api/search?q=' + encodeURIComponent(q) + '&limit=20').then(function (json) {
+      return (json && json.data || []).map(function (x) {
+        return {
+          url: x.slug,
+          slug: x.slug,
+          title: x.name + (x.originalName && x.originalName !== x.name ? ' / ' + x.originalName : ''),
+          titles: [x.name, x.originalName],
+          year: x.yearStart || null,
+          serial: x.type === 'serial',
+          firstSeason: x.firstReadySeason && x.firstReadySeason.number || 1
+        };
+      });
+    });
+  }
+
+  function ksContent(root, slug, season) {
+    return ksJson(root + '/api/content/' + encodeURIComponent(slug) + '?season=' + season).then(function (json) {
+      return json && json.data || {};
+    });
+  }
+
+  function ksCollect(season, isMovie, items) {
+    var pd = season && season.playerData;
+    if (!pd || typeof pd !== 'object') return;
+    function add(list, ep) {
+      (list || []).forEach(function (v) {
+        if (!v || !v.link) return;
+        items.push({
+          voice: v.name || 'Ashdi',
+          season: isMovie ? null : season.number,
+          episode: isMovie ? null : ep,
+          title: v.name || '',
+          player: v.link,
+          referer: KS_REF
+        });
+      });
+    }
+    if (Array.isArray(pd.ashdi)) { add(pd.ashdi, null); return; }
+    Object.keys(pd).forEach(function (k) {
+      if (pd[k] && pd[k].ashdi) add(pd[k].ashdi, parseInt(k, 10));
+    });
+  }
+
+  function ksLoad(root, r) {
+    return ksContent(root, r.slug, r.firstSeason || 1).then(function (data) {
+      var isMovie = data.type === 'movie';
+      var seasons = data.seasons || [];
+      return Promise.all(seasons.map(function (s) {
+        if (s.playerData) return s;
+        return ksContent(root, r.slug, s.number).then(function (d) {
+          return (d.seasons || []).filter(function (x) { return x.number === s.number; })[0] || s;
+        }).catch(function (e) {
+          log('KinoStrain: сезон ' + s.number + ' — ' + e.message);
+          return s;
+        });
+      })).then(function (full) {
+        var items = [];
+        full.forEach(function (s) { ksCollect(s, isMovie, items); });
+        // фільм з одним вузлом виглядає як «серія 1» — прибираємо номери
+        if (isMovie) items.forEach(function (i) { i.season = null; i.episode = null; });
+        // однакові озвучки фільму з різних вузлів залишаємо один раз
+        var seen = {};
+        return items.filter(function (i) {
+          var k = [i.voice, i.season, i.episode].join('|');
+          if (seen[k]) return false;
+          seen[k] = 1;
+          return true;
+        });
       });
     });
   }
@@ -425,18 +579,22 @@
 
   var BALANCERS = [
     {
+      name: 'kinostrain', title: 'KinoStrain', key: 'uaonline_kinostrain',
+      search: function (q) { return ksSearch(siteRoot('uaonline_kinostrain'), q); },
+      load: function (r) { return ksLoad(siteRoot('uaonline_kinostrain'), r); }
+    },
+    {
       name: 'uaflix', title: 'UAFlix', key: 'uaonline_uaflix',
       // uafix.net: адреси вигляду /films/nazva/ та /serials/nazva/
       linkRe: /\/(?:films|serials|cartoons|anime|dorama)\/[^\/?#]+\/?(?:[?#]|$)/
     },
     { name: 'eneyida', title: 'Eneyida', key: 'uaonline_eneyida' },
-    { name: 'uaserials', title: 'UASerials', key: 'uaonline_uaserials' },
     { name: 'uakino', title: 'UAKino', key: 'uaonline_uakino', ajaxPlaylist: true }
   ];
 
   BALANCERS.forEach(function (b) {
-    b.search = function (q) { return dleSearch(siteRoot(b.key), q, b.linkRe); };
-    b.load = function (r) { return dleLoad(siteRoot(b.key), r.url, b); };
+    if (!b.search) b.search = function (q) { return dleSearch(siteRoot(b.key), q, b.linkRe); };
+    if (!b.load) b.load = function (r) { return dleLoad(siteRoot(b.key), r.url, b); };
   });
 
   /* ============================ Пошук фільму ============================ */
@@ -445,20 +603,35 @@
     return parseInt(String(m.release_date || m.first_air_date || '').slice(0, 4), 10) || null;
   }
 
+  function isTvCard(m) {
+    return !!(m.first_air_date || m.number_of_seasons || (m.name && !m.title));
+  }
+
   function pickMatches(results, movie) {
     var titles = uniq([movie.uk_title, movie.title, movie.name, movie.original_title, movie.original_name].map(norm));
     var year = movieYear(movie);
+    var tv = isTvCard(movie);
 
     return results.map(function (r) {
-      var t = norm(r.title), card = ' ' + norm(r.card) + ' ', s = 0;
+      var names = (r.titles && r.titles.length ? r.titles : [r.title]).map(norm);
+      var card = ' ' + norm(r.card) + ' ', s = 0, cardOnly = false;
       titles.forEach(function (x) {
         if (!x) return;
-        if (t === x) s = Math.max(s, 4);
-        else if (t.indexOf(x + ' ') === 0 || t.indexOf(' ' + x) >= 0 || t.indexOf(x) === 0) s = Math.max(s, 3);
-        else if (x.length > 5 && t.indexOf(x) >= 0) s = Math.max(s, 2);
-        else if (x.length > 3 && card.indexOf(' ' + x + ' ') >= 0) s = Math.max(s, 2);
+        names.forEach(function (t) {
+          if (!t) return;
+          if (t === x) s = Math.max(s, 4);
+          else if (t.indexOf(x + ' ') === 0 || t.indexOf(' ' + x) >= 0 || t.indexOf(x) === 0) s = Math.max(s, 3);
+          else if (x.length > 5 && t.indexOf(x) >= 0) s = Math.max(s, 2);
+        });
+        if (!s && x.length > 3 && card.indexOf(' ' + x + ' ') >= 0) { s = 2; cardOnly = true; }
       });
-      if (s && year && r.year) s += Math.abs(r.year - year) <= 1 ? 2 : -3;
+      if (!s) return { r: r, s: 0 };
+      var yearOk = year && r.year ? Math.abs(r.year - year) <= 1 : null;
+      if (yearOk === true) s += 2;
+      if (yearOk === false) s -= 3;
+      // збіг лише в описі картки — приймаємо тільки з тим самим роком
+      if (cardOnly && yearOk !== true) s = 0;
+      if (typeof r.serial === 'boolean' && r.serial !== tv) s -= 2;
       return { r: r, s: s };
     }).filter(function (x) { return x.s >= 2; })
       .sort(function (a, b) { return b.s - a.s; })
@@ -600,7 +773,7 @@
         state.items = items;
         log(b.title + ': всього відео ' + items.length);
         if (!items.length) {
-          state.error = b.title + ': на сторінці «' + r.title + '» не знайдено плеєра';
+          state.error = b.title + ': на сторінці «' + short(r.title, 50) + '» не знайдено плеєра';
           return false;
         }
         var vs = voices(), saved = Lampa.Storage.get('uaonline_voice', '');
@@ -691,7 +864,7 @@
 
     function chooseResult() {
       select('Що саме відкрити', state.results.map(function (r) {
-        return { title: r.title + (r.year ? ' (' + r.year + ')' : ''), selected: r === state.result, r: r };
+        return { title: short(r.title, 80) + (r.year ? ' (' + r.year + ')' : ''), selected: r === state.result, r: r };
       }), function (a) {
         loader(true);
         loadResult(a.r).catch(function (e) {
@@ -742,22 +915,33 @@
           timeline: timeline(it)
         };
         if (src.quality) element.quality = src.quality;
+        if (src.subtitles && src.subtitles.length) element.subtitles = src.subtitles;
 
-        var playlist = [element];
-        if (isSerial() && shown.every(function (x) { return x.file; })) {
-          playlist = shown.map(function (x) {
-            if (x === it) return element;
-            var s = parseFile(x.file);
-            var el = {
-              title: (movie.title || movie.name || '') + ' — ' + itemTitle(x),
-              url: streamUrl(s.url, x),
-              timeline: timeline(x)
-            };
-            if (s.quality) el.quality = s.quality;
-            return el;
-          });
+        if (!isSerial()) {
+          Lampa.Player.play(element);
+          Lampa.Player.playlist([element]);
+          return;
         }
 
+        // Плейлист серій: посилання на інші серії дістаються, коли до них дійде черга
+        var playlist = shown.map(function (x) {
+          if (x === it) return element;
+          var el = { title: (movie.title || movie.name || '') + ' — ' + itemTitle(x), timeline: timeline(x) };
+          el.url = function (call) {
+            resolveItem(x).then(function (s) {
+              el.url = streamUrl(s.url, x);
+              if (s.quality) el.quality = s.quality;
+              if (s.subtitles && s.subtitles.length) el.subtitles = s.subtitles;
+              call();
+            }).catch(function (e) {
+              log('серія ' + itemTitle(x) + ': ' + e.message);
+              el.url = '';
+              call();
+            });
+          };
+          return el;
+        });
+        element.playlist = playlist;
         Lampa.Player.play(element);
         Lampa.Player.playlist(playlist);
       }).catch(function (e) {
@@ -792,7 +976,7 @@
 
       var b = state.balancer || BALANCERS[0];
       button('Джерело', b.title, chooseBalancer);
-      if (state.results.length > 1 && state.result) button('Знайдено', state.result.title, chooseResult);
+      if (state.results.length > 1 && state.result) button('Знайдено', short(state.result.title, 50), chooseResult);
       if (isSerial() && voices().length > 1) button('Озвучка', state.voice, chooseVoice);
       if (isSerial() && seasons().length > 1) button('Сезон', state.season, chooseSeason);
       button('Журнал', '', showLog);
