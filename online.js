@@ -9,7 +9,7 @@
   if (window.uaonline_ready) return;
   window.uaonline_ready = true;
 
-  var VERSION = '1.1.0';
+  var VERSION = '1.1.1';
   var PLAYER_HOSTS = /(ashdi|zetvideo|hdvbua|tortuga|makhno)/i;
   var ICON = '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
 
@@ -263,7 +263,12 @@
     }
     return request(item.player, { referer: item.referer }).then(function (html) {
       var p = parsePlayerjs(html);
-      if (!p) throw new Error('у плеєрі ' + hostOf(item.player) + ' не знайдено відео');
+      if (!p) {
+        // Діагностика: що саме повернув сервер плеєра
+        var t = (html.match(/<title>([^<]*)<\/title>/i) || [])[1] || '';
+        log('плеєр ' + item.player + ' → ' + html.length + ' байт, title: «' + clean(t) + '», початок: ' + clean(html.replace(/<script[\s\S]*?<\/script>/gi, ' ')).slice(0, 150));
+        throw new Error('у плеєрі ' + hostOf(item.player) + ' не знайдено відео');
+      }
       var src;
       if (typeof p === 'string') src = parseFile(p);
       else {
@@ -496,7 +501,7 @@
   var KS_REF = 'https://kinostrain.com/';
 
   function ksJson(url) {
-    return request(url, { referer: KS_REF }).then(function (txt) {
+    return request(url, { referer: KS_REF, xhr: true }).then(function (txt) {
       try { return JSON.parse(txt); } catch (e) { throw new Error('KinoStrain повернув не JSON'); }
     });
   }
