@@ -9,7 +9,7 @@
   if (window.uaonline_ready) return;
   window.uaonline_ready = true;
 
-  var VERSION = '1.0.1';
+  var VERSION = '1.0.2';
   var PLAYER_HOSTS = /(ashdi|zetvideo|hdvbua|tortuga|makhno)/i;
   var ICON = '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
 
@@ -25,11 +25,12 @@
   /* ============================ Налаштування ========================== */
 
   var DEFAULTS = {
-    uaonline_proxy: '',
+    uaonline_proxy: 'https://ua-proxy.andrewgolub25.workers.dev',
     uaonline_hls: false,
     uaonline_uakino: 'https://uakino.best',
     uaonline_uaflix: 'https://uafix.net',
-    uaonline_eneyida: 'https://eneyida.tv'
+    uaonline_eneyida: 'https://eneyida.tv',
+    uaonline_uaserials: 'https://uaserials.com'
   };
 
   function cfg(key) {
@@ -50,7 +51,8 @@
       ['uaonline_hls', 'trigger', 'Відео через проксі', 'Вмикай, лише якщо список серій є, а відео не запускається'],
       ['uaonline_uakino', 'input', 'Домен UAKino', 'Зміни, якщо сайт переїхав'],
       ['uaonline_uaflix', 'input', 'Домен UAFlix', 'Зміни, якщо сайт переїхав'],
-      ['uaonline_eneyida', 'input', 'Домен Eneyida', 'Зміни, якщо сайт переїхав']
+      ['uaonline_eneyida', 'input', 'Домен Eneyida', 'Зміни, якщо сайт переїхав'],
+      ['uaonline_uaserials', 'input', 'Домен UASerials', 'Зміни, якщо сайт переїхав']
     ];
 
     params.forEach(function (p) {
@@ -264,31 +266,35 @@
   /* ========================= DLE-сайти (спільне) ========================= */
 
   // Пошук на сайтах на рушії DataLife Engine (uakino, uaflix, eneyida)
-  function parseSearch(html, root) {
+  var DLE_LINK = /\/\d+-[^\/?#]+\.html(?:[?#]|$)/;
+
+  function parseSearch(html, root, linkRe) {
     var doc = parseHTML(html);
     var rootHost = hostOf(root).replace(/^www\./, '');
     var byUrl = {}, out = [];
 
     all(doc, 'a[href]').forEach(function (a) {
       var href = absUrl(a.getAttribute('href'), root);
-      if (!/\/\d+-[^\/?#]+\.html(?:[?#]|$)/.test(href)) return;
+      if (!(linkRe || DLE_LINK).test(href)) return;
       if (hostOf(href).replace(/^www\./, '') !== rootHost) return;
 
       var img = a.querySelector('img');
-      var title = clean(a.textContent) || a.getAttribute('title') || (img && img.getAttribute('alt')) || '';
+      var attr = clean(a.getAttribute('title')).replace(/^(смотреть|дивитись|дивитися)\s+/i, '').replace(/\s+онлайн$/i, '');
+      var title = clean(a.textContent) || attr || (img && img.getAttribute('alt')) || '';
 
       if (byUrl[href]) {
         if (!byUrl[href].title && title) byUrl[href].title = title;
+        if (attr) byUrl[href].card += ' ' + attr;
         return;
       }
 
       // Картка результату: шукаємо в ній рік і другу назву (часто оригінальну)
-      var year = null, card = '', box = a;
+      var year = null, card = attr, box = a;
       for (var i = 0; i < 4 && box.parentElement; i++) {
         box = box.parentElement;
         var text = clean(box.textContent);
         if (text.length > 800) break;
-        card = text;
+        card = text + (attr ? ' ' + attr : '');
         var y = text.match(/\b(19[2-9]\d|20[0-4]\d)\b/);
         if (y) { year = parseInt(y[1], 10); break; }
       }
@@ -300,14 +306,14 @@
     return out.filter(function (r) { return r.title; });
   }
 
-  function dleSearch(root, query) {
+  function dleSearch(root, query, linkRe) {
     var form = 'do=search&subaction=search&story=' + encodeURIComponent(query);
     return request(root + '/index.php?' + form, { referer: root + '/' }).then(function (html) {
-      var res = parseSearch(html, root);
+      var res = parseSearch(html, root, linkRe);
       if (res.length) return res;
       // Деякі сайти віддають результати лише на POST-запит
       return request(root + '/index.php?do=search', { referer: root + '/', post: form }).then(function (html2) {
-        return parseSearch(html2, root);
+        return parseSearch(html2, root, linkRe);
       });
     });
   }
@@ -418,13 +424,18 @@
   // Щоб додати новий сайт на DLE — допиши ще один рядок сюди і в DEFAULTS.
 
   var BALANCERS = [
-    { name: 'uakino', title: 'UAKino', key: 'uaonline_uakino', ajaxPlaylist: true },
-    { name: 'uaflix', title: 'UAFlix', key: 'uaonline_uaflix' },
-    { name: 'eneyida', title: 'Eneyida', key: 'uaonline_eneyida' }
+    {
+      name: 'uaflix', title: 'UAFlix', key: 'uaonline_uaflix',
+      // uafix.net: адреси вигляду /films/nazva/ та /serials/nazva/
+      linkRe: /\/(?:films|serials|cartoons|anime|dorama)\/[^\/?#]+\/?(?:[?#]|$)/
+    },
+    { name: 'eneyida', title: 'Eneyida', key: 'uaonline_eneyida' },
+    { name: 'uaserials', title: 'UASerials', key: 'uaonline_uaserials' },
+    { name: 'uakino', title: 'UAKino', key: 'uaonline_uakino', ajaxPlaylist: true }
   ];
 
   BALANCERS.forEach(function (b) {
-    b.search = function (q) { return dleSearch(siteRoot(b.key), q); };
+    b.search = function (q) { return dleSearch(siteRoot(b.key), q, b.linkRe); };
     b.load = function (r) { return dleLoad(siteRoot(b.key), r.url, b); };
   });
 
