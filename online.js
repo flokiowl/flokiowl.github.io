@@ -9,7 +9,7 @@
   if (window.uaonline_ready) return;
   window.uaonline_ready = true;
 
-  var VERSION = '1.0.0';
+  var VERSION = '1.0.1';
   var PLAYER_HOSTS = /(ashdi|zetvideo|hdvbua|tortuga|makhno)/i;
   var ICON = '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
 
@@ -99,7 +99,10 @@
         headers: opts.post ? { 'Content-Type': 'application/x-www-form-urlencoded' } : undefined,
         signal: ctrl ? ctrl.signal : undefined
       }).then(function (r) {
-        if (!r.ok) throw new Error('HTTP ' + r.status + ' від ' + hostOf(url));
+        if (!r.ok) {
+          var hint = r.status === 403 ? ' (сайт блокує проксі або змінив домен)' : r.status === 404 ? ' (сторінку не знайдено — можливо, сайт переїхав)' : '';
+          throw new Error('HTTP ' + r.status + ' від ' + hostOf(url) + hint);
+        }
         return r.text();
       }).then(function (t) {
         clearTimeout(timer);
@@ -261,40 +264,51 @@
   /* ========================= DLE-сайти (спільне) ========================= */
 
   // Пошук на сайтах на рушії DataLife Engine (uakino, uaflix, eneyida)
+  function parseSearch(html, root) {
+    var doc = parseHTML(html);
+    var rootHost = hostOf(root).replace(/^www\./, '');
+    var byUrl = {}, out = [];
+
+    all(doc, 'a[href]').forEach(function (a) {
+      var href = absUrl(a.getAttribute('href'), root);
+      if (!/\/\d+-[^\/?#]+\.html(?:[?#]|$)/.test(href)) return;
+      if (hostOf(href).replace(/^www\./, '') !== rootHost) return;
+
+      var img = a.querySelector('img');
+      var title = clean(a.textContent) || a.getAttribute('title') || (img && img.getAttribute('alt')) || '';
+
+      if (byUrl[href]) {
+        if (!byUrl[href].title && title) byUrl[href].title = title;
+        return;
+      }
+
+      // Картка результату: шукаємо в ній рік і другу назву (часто оригінальну)
+      var year = null, card = '', box = a;
+      for (var i = 0; i < 4 && box.parentElement; i++) {
+        box = box.parentElement;
+        var text = clean(box.textContent);
+        if (text.length > 800) break;
+        card = text;
+        var y = text.match(/\b(19[2-9]\d|20[0-4]\d)\b/);
+        if (y) { year = parseInt(y[1], 10); break; }
+      }
+
+      byUrl[href] = { url: href, title: title, year: year, card: card };
+      out.push(byUrl[href]);
+    });
+
+    return out.filter(function (r) { return r.title; });
+  }
+
   function dleSearch(root, query) {
-    var url = root + '/index.php?do=search&subaction=search&story=' + encodeURIComponent(query);
-    return request(url, { referer: root + '/' }).then(function (html) {
-      var doc = parseHTML(html);
-      var rootHost = hostOf(root).replace(/^www\./, '');
-      var byUrl = {}, out = [];
-
-      all(doc, 'a[href]').forEach(function (a) {
-        var href = absUrl(a.getAttribute('href'), root);
-        if (!/\/\d+-[^\/?#]+\.html(?:[?#]|$)/.test(href)) return;
-        if (hostOf(href).replace(/^www\./, '') !== rootHost) return;
-
-        var img = a.querySelector('img');
-        var title = clean(a.textContent) || a.getAttribute('title') || (img && img.getAttribute('alt')) || '';
-
-        if (byUrl[href]) {
-          if (!byUrl[href].title && title) byUrl[href].title = title;
-          return;
-        }
-
-        var year = null, box = a;
-        for (var i = 0; i < 4 && box.parentElement; i++) {
-          box = box.parentElement;
-          var text = box.textContent || '';
-          if (text.length > 800) break;
-          var y = text.match(/\b(19[2-9]\d|20[0-4]\d)\b/);
-          if (y) { year = parseInt(y[1], 10); break; }
-        }
-
-        byUrl[href] = { url: href, title: title, year: year };
-        out.push(byUrl[href]);
+    var form = 'do=search&subaction=search&story=' + encodeURIComponent(query);
+    return request(root + '/index.php?' + form, { referer: root + '/' }).then(function (html) {
+      var res = parseSearch(html, root);
+      if (res.length) return res;
+      // Деякі сайти віддають результати лише на POST-запит
+      return request(root + '/index.php?do=search', { referer: root + '/', post: form }).then(function (html2) {
+        return parseSearch(html2, root);
       });
-
-      return out.filter(function (r) { return r.title; });
     });
   }
 
@@ -421,16 +435,17 @@
   }
 
   function pickMatches(results, movie) {
-    var titles = uniq([movie.title, movie.name, movie.original_title, movie.original_name].map(norm));
+    var titles = uniq([movie.uk_title, movie.title, movie.name, movie.original_title, movie.original_name].map(norm));
     var year = movieYear(movie);
 
     return results.map(function (r) {
-      var t = norm(r.title), s = 0;
+      var t = norm(r.title), card = ' ' + norm(r.card) + ' ', s = 0;
       titles.forEach(function (x) {
         if (!x) return;
         if (t === x) s = Math.max(s, 4);
         else if (t.indexOf(x + ' ') === 0 || t.indexOf(' ' + x) >= 0 || t.indexOf(x) === 0) s = Math.max(s, 3);
         else if (x.length > 5 && t.indexOf(x) >= 0) s = Math.max(s, 2);
+        else if (x.length > 3 && card.indexOf(' ' + x + ' ') >= 0) s = Math.max(s, 2);
       });
       if (s && year && r.year) s += Math.abs(r.year - year) <= 1 ? 2 : -3;
       return { r: r, s: s };
@@ -439,8 +454,38 @@
       .map(function (x) { return x.r; });
   }
 
+  // Українська назва з TMDB (якщо Lampa показує назви іншою мовою)
+  function loadUkTitle(movie) {
+    if (movie.uk_title !== undefined || !movie.id) return Promise.resolve();
+    var type = movie.name && !movie.title ? 'tv' : 'movie';
+    var path = type + '/' + movie.id + '?language=uk-UA';
+    var url;
+    try {
+      var key = Lampa.TMDB.key();
+      url = Lampa.TMDB.api(path + '&api_key=' + key);
+    } catch (e) {
+      movie.uk_title = '';
+      return Promise.resolve();
+    }
+    return new Promise(function (resolve) {
+      var done = false;
+      setTimeout(function () { if (!done) { movie.uk_title = ''; resolve(); } }, 6000);
+      fetch(url).then(function (r) { return r.json(); }).then(function (j) {
+        done = true;
+        movie.uk_title = (j && (j.title || j.name)) || '';
+        log('назва українською: ' + (movie.uk_title || '—'));
+        resolve();
+      }).catch(function (e) {
+        done = true;
+        movie.uk_title = '';
+        log('TMDB: ' + e.message);
+        resolve();
+      });
+    });
+  }
+
   function findOn(b, movie) {
-    var queries = uniq([movie.title || movie.name, movie.original_title || movie.original_name]);
+    var queries = uniq([movie.uk_title, movie.original_title || movie.original_name, movie.title || movie.name]);
     var i = 0;
     function next() {
       if (i >= queries.length) return Promise.resolve([]);
@@ -599,7 +644,7 @@
       }
 
       loader(true);
-      return next().then(function () {
+      return loadUkTitle(movie).then(next).then(function () {
         loader(false);
         draw();
       });
